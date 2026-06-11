@@ -1,17 +1,14 @@
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { FaHeart, FaCode, FaPalette, FaRocket, FaDownload } from "react-icons/fa";
+import { useSectionInView } from "../hooks/useSectionInView";
+import { FaCarSide, FaBrain, FaSatelliteDish, FaMicrochip, FaDownload } from "react-icons/fa";
 import headshotImg from "../images/headshot.jpg";
-import resumePdf from "../other/Resume.pdf";
+import resumePdf from "../other/daniel_szurek_resume.pdf";
 import ReactGA from 'react-ga4';
 import "./About.css";
 
 const About = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const sectionRef = useRef(null);
 
@@ -48,28 +45,28 @@ const About = () => {
 
   const interests = [
     {
-      icon: <FaCode />,
-      title: "Autonomous Systems",
+      icon: <FaCarSide />,
+      title: "ADAS & Vehicle Control",
       description:
-        "Developing advanced vehicle control systems with sensor fusion, ADAS features, and real-time decision-making algorithms.",
+        "Architecting full-stack ADAS — lane centering, cooperative adaptive cruise control, and automatic intersection navigation — with MPC, PID, and Stanley controllers in MATLAB/Simulink.",
     },
     {
-      icon: <FaPalette />,
-      title: "AI & Machine Learning",
+      icon: <FaBrain />,
+      title: "AI for Autonomy",
       description:
-        "Researching and implementing Model Predictive Control, Reinforcement Learning, and Genetic Algorithms for optimization.",
+        "Applying Gaussian Processes, Reinforcement Learning, and LLM-based agents to make autonomous systems more reliable, efficient, and developer-friendly.",
     },
     {
-      icon: <FaHeart />,
-      title: "Data Engineering",
+      icon: <FaSatelliteDish />,
+      title: "Sensor Fusion & V2X",
       description:
-        "Building scalable ETL pipelines, dashboards, and analytics solutions that drive business insights and automation.",
+        "Designing global nearest neighbor (GNN) sensor fusion pipelines and V2X-aware controllers that stay safe under noisy SPaT data and packet loss.",
     },
     {
-      icon: <FaRocket />,
-      title: "Research & Innovation",
+      icon: <FaMicrochip />,
+      title: "HIL / VIL Validation",
       description:
-        "Contributing to academic research with expected publications in Gaussian Processes and hybrid DRL/MPC controllers.",
+        "Validating safety-critical software through rigorous Hardware-in-the-Loop and Vehicle-in-the-Loop testing on pre-production vehicles like the Cadillac Lyriq.",
     },
   ];
 
@@ -147,6 +144,8 @@ const About = () => {
                   src={headshotImg}
                   alt="Daniel Szurek"
                   className="headshot-img"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div className="image-decoration"></div>
@@ -155,23 +154,25 @@ const About = () => {
             <div className="intro-text">
               <h3>Hey! I'm Daniel</h3>
               <p>
-                Accelerated Master's student in Computer Science leading
-                cutting-edge autonomous vehicle development at the University of
-                Alabama's EcoCAR team. Currently directing a 15-student team in
-                developing advanced driver assistance systems (ADAS) including
-                lane-keep assist, adaptive cruise control, and V2X
-                connectivity—with active research in Model Predictive Control,
-                Reinforcement Learning, and Gaussian Processes for efficiency
-                optimization.
+                I'm a software engineer focused on Advanced Driver Assistance
+                Systems and autonomous vehicles. I recently completed my
+                Bachelor of Science in Computer Science at the University of
+                Alabama and am continuing into the Accelerated Master's Program
+                while leading the Connected and Automated Vehicle (CAV) effort
+                on the University's EcoCAR EV Challenge team.
               </p>
               <p>
-                I combine deep technical expertise in AI and autonomous systems
-                with proven software and data engineering experience from
-                internships at SSAB and Brasfield & Gorrie, where I delivered
-                enterprise-scale dashboards, automated reporting pipelines, and
-                cloud-based solutions. Passionate about applying machine
-                learning and intelligent systems to solve real-world challenges
-                in automotive and tech industries.
+                This summer I'm joining{" "}
+                <span className="highlight-text">General Motors</span> in
+                Milford, MI as an{" "}
+                <span className="highlight-text">ADAS Software Engineer Intern</span>,
+                building an LLM-powered coding agent to automate repetitive
+                function creation for the data recording team. On EcoCAR, I
+                architect the autonomous navigation stack for a pre-production
+                Cadillac Lyriq — integrating Lane Centering, Cooperative
+                Adaptive Cruise Control, and V2X connectivity into stock
+                onboard systems, with MPC/PID longitudinal control, a Stanley
+                lateral controller, and a GNN sensor fusion pipeline.
               </p>
               <p>
                 When I'm not coding, you can find me practicing my instrumental
@@ -204,7 +205,12 @@ const About = () => {
                   <div className="favorites-row">
                     {favorites.music.map((item, index) => (
                       <div key={index} className="favorite-item">
-                        <img src={item.cover} alt={item.title} />
+                        <img
+                          src={item.cover}
+                          alt={item.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <div className="favorite-details">
                           <span className="song-title">{item.title}</span>
                           <span className="song-artist">{item.artist}</span>
@@ -213,13 +219,18 @@ const About = () => {
                     ))}
                   </div>
                 </div>
-                
+
                 <div className="favorites-group">
                   <h4>Currently Reading</h4>
                   <div className="favorites-row">
                     {favorites.books.map((item, index) => (
                       <div key={index} className="favorite-item">
-                        <img src={item.cover} alt={item.title} />
+                        <img
+                          src={item.cover}
+                          alt={item.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
                         <div className="favorite-details">
                           <span className="song-title">{item.title}</span>
                           <span className="song-artist">{item.author}</span>
@@ -267,39 +278,34 @@ const About = () => {
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <div className="stat-card glass">
-              <motion.div
-                className="stat-number gradient-text"
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : { scale: 0 }}
-                transition={{ duration: 0.6, delay: 0.8, type: "spring" }}
-              >
-                15+
-              </motion.div>
-              <div className="stat-label">Team Members Led</div>
-            </div>
-            <div className="stat-card glass">
-              <motion.div
-                className="stat-number gradient-text"
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : { scale: 0 }}
-                transition={{ duration: 0.6, delay: 0.9, type: "spring" }}
-              >
-                3.88
-              </motion.div>
-              <div className="stat-label">GPA / 4.0</div>
-            </div>
-            <div className="stat-card glass">
-              <motion.div
-                className="stat-number gradient-text"
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : { scale: 0 }}
-                transition={{ duration: 0.6, delay: 1.0, type: "spring" }}
-              >
-                3
-              </motion.div>
-              <div className="stat-label">Research Papers (Expected)</div>
-            </div>
+            {[
+              { value: "15+", label: "Team Members Led", delay: 0.8 },
+              { value: "3.87", label: "Undergraduate GPA", delay: 0.9 },
+              { value: "ADAS", label: "Focus Area", delay: 1.0 },
+            ].map((stat) => (
+              <div className="stat-card glass" key={stat.label}>
+                <div className="gauge">
+                  <div className="gauge-track" />
+                  {inView && <div className="gauge-fill" />}
+                  <div className="gauge-ticks" />
+                  <div className="gauge-center">
+                    <motion.div
+                      className="stat-number gradient-text"
+                      initial={{ scale: 0 }}
+                      animate={inView ? { scale: 1 } : { scale: 0 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: stat.delay,
+                        type: "spring",
+                      }}
+                    >
+                      {stat.value}
+                    </motion.div>
+                    <div className="stat-label">{stat.label}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>

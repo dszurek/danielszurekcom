@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useSectionInView } from "../hooks/useSectionInView";
 import {
   FaGithub,
   FaExternalLinkAlt,
@@ -12,6 +12,8 @@ import {
   FaMicrochip,
   FaAndroid,
   FaAppStore,
+  FaUniversalAccess,
+  FaReact,
 } from "react-icons/fa";
 import {
   SiFlutter,
@@ -33,10 +35,7 @@ import lispImg from "../images/lisp.png";
 import scaloxImg from "../images/scalox.png";
 
 const Projects = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [filter, setFilter] = useState("all");
@@ -59,6 +58,20 @@ const Projects = () => {
     });
   };
 
+  // While the modal is open: Escape closes it and the page behind stays put
+  useEffect(() => {
+    if (!selectedProject) return;
+    const onKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedProject(null);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [selectedProject]);
+
   const handleExternalLinkClick = (e, type, projectTitle) => {
     e.stopPropagation();
     ReactGA.event({
@@ -69,6 +82,45 @@ const Projects = () => {
   };
 
   const projects = [
+    {
+      id: 8,
+      title: "Driveability — Accessible Driving Resource",
+      category: "automotive",
+      description:
+        "Capstone project: a social media web platform with resources and reviews on assisted driving tools, aimed at disabled drivers learning and sharing accessible driving techniques. Combines community-driven reviews with curated ADAS and adaptive-driving content.",
+      technologies: [
+        "React",
+        "JavaScript",
+        "Accessibility",
+        "Full-Stack Web",
+        "Capstone Project",
+      ],
+      icons: [<FaUniversalAccess />, <FaReact />, <FaCar />],
+      image: null,
+      imageAlt: "Driveability accessible driving resource",
+      github: null,
+      live: null,
+    },
+    {
+      id: 9,
+      title: "Gaussian Process + MPC for V2X Intersection Navigation",
+      category: "automotive",
+      description:
+        "Custom controller for Automatic Intersection Navigation that compensates for SPaT V2X data loss caused by radio noise. A trained Gaussian Process predicts signal phase and timing through dropouts, and an MPC uses those predictions to plan smooth, energy-aware approaches.",
+      technologies: [
+        "MATLAB",
+        "Simulink",
+        "Gaussian Processes",
+        "Model Predictive Control",
+        "V2X",
+        "SPaT",
+      ],
+      icons: [<FaCar />, <FaMicrochip />],
+      image: null,
+      imageAlt: "Gaussian Process MPC controller",
+      github: null,
+      live: null,
+    },
     {
       id: 1,
       title: "EcoCAR CAV System - Autonomous Vehicle Platform",
@@ -193,9 +245,14 @@ const Projects = () => {
     { id: "all", label: "All Projects" },
     { id: "automotive", label: "Autonomous Vehicles" },
     { id: "ai", label: "AI & ML" },
-    { id: "mobile", label: "Mobile" },
     { id: "foundation", label: "Foundational" },
   ];
+
+  // Headline ADAS work, surfaced in the "Pole Position" showcase above the grid.
+  const featuredIds = [1, 9, 8];
+  const featuredProjects = featuredIds
+    .map((id) => projects.find((project) => project.id === id))
+    .filter(Boolean);
 
   const filteredProjects =
     filter === "all"
@@ -217,6 +274,75 @@ const Projects = () => {
             Autonomous systems, AI research, and enterprise solutions
           </p>
         </motion.div>
+
+        <motion.div
+          className="featured-showcase"
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
+          <div className="featured-banner">
+            <span className="featured-flag" aria-hidden="true" />
+            <span className="featured-eyebrow">Pole Position</span>
+            <span className="featured-subline">Headline ADAS work</span>
+          </div>
+
+          <div className="featured-grid">
+            {featuredProjects.map((project, index) => (
+              <motion.article
+                key={project.id}
+                className="featured-card glass"
+                initial={{ opacity: 0, y: 40 }}
+                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.5, delay: 0.25 + index * 0.12 }}
+                whileHover={{ y: -8 }}
+                onClick={() => handleProjectClick(project)}
+              >
+                <span className="featured-stripe" aria-hidden="true" />
+                <span className="featured-index">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="featured-media">
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.imageAlt}
+                      className="featured-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="project-img-fallback featured-fallback">
+                      <div className="fallback-icons">
+                        {project.icons.map((icon, i) => (
+                          <span key={i} className="fallback-icon">
+                            {icon}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <span className="featured-badge">ADAS</span>
+                </div>
+                <div className="featured-body">
+                  <h3 className="featured-title">{project.title}</h3>
+                  <p className="featured-desc">{project.description}</p>
+                  <div className="featured-tech">
+                    {project.technologies.slice(0, 4).map((tech, i) => (
+                      <span key={i} className="tech-tag">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="projects-divider">
+          <span>All Projects</span>
+        </div>
 
         <motion.div
           className="projects-filters"
@@ -254,11 +380,25 @@ const Projects = () => {
                 onClick={() => handleProjectClick(project)}
               >
                 <div className="project-image">
-                  <img
-                    src={project.image}
-                    alt={project.imageAlt}
-                    className="project-img-element"
-                  />
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.imageAlt}
+                      className="project-img-element"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div className="project-img-fallback">
+                      <div className="fallback-icons">
+                        {project.icons.map((icon, i) => (
+                          <span key={i} className="fallback-icon">
+                            {icon}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   <div className="project-overlay">
                     <div className="project-icons">
                       {project.icons.map((icon, i) => (
@@ -338,6 +478,9 @@ const Projects = () => {
           >
             <motion.div
               className="project-modal glass-strong"
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedProject.title}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -345,16 +488,29 @@ const Projects = () => {
             >
               <button
                 className="modal-close"
+                aria-label="Close project details"
                 onClick={() => setSelectedProject(null)}
               >
                 ×
               </button>
               <div className="modal-image">
-                <img
-                  src={selectedProject.image}
-                  alt={selectedProject.imageAlt}
-                  className="modal-img-element"
-                />
+                {selectedProject.image ? (
+                  <img
+                    src={selectedProject.image}
+                    alt={selectedProject.imageAlt}
+                    className="modal-img-element"
+                  />
+                ) : (
+                  <div className="project-img-fallback modal-img-fallback">
+                    <div className="fallback-icons">
+                      {selectedProject.icons.map((icon, i) => (
+                        <span key={i} className="fallback-icon">
+                          {icon}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="modal-content">
                 <h3>{selectedProject.title}</h3>

@@ -5,16 +5,33 @@
 }
 
 :root {
-  --color-dark: #0a0a0a;
-  --color-darker: #050505;
-  --color-leather-brown: #8b5a3c;
-  --color-leather-light: #a67c52;
-  --color-forest-green: #2d4a3e;
-  --color-forest-light: #3d5a4e;
-  --color-beige: #d4c5b9;
-  --color-beige-light: #e8dfd5;
-  --color-text: #ffffff;
-  --color-text-muted: #b8b8b8;
+  /* Lifted-dark graphite/slate base (was near-black) */
+  --color-darker: #1c1f23;
+  --color-dark: #22262b;
+  --color-surface: #2a2f35;
+  --color-surface-2: #31373e;
+
+  /* Brightened warm accents (brand continuity) */
+  --color-leather-brown: #b07a4f;
+  --color-leather-light: #c79a6b;
+  --color-forest-green: #3f6353;
+  --color-forest-light: #5a8270;
+
+  --color-beige: #d8ccc0;
+  --color-beige-light: #efe7dd;
+  --color-text: #f4f1ec;
+  --color-text-muted: #aab2b8;
+
+  /* Technical voice for HUD elements (gear readout, detection chip, pills) */
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* RGB helpers for translucent accents */
+  --rgb-leather: 176, 122, 79;
+  --rgb-leather-light: 199, 154, 107;
+  --rgb-forest: 63, 99, 83;
+  --rgb-forest-light: 90, 130, 112;
+  --rgb-beige: 216, 204, 192;
+  --rgb-slate: 49, 55, 62;
 }
 
 html {

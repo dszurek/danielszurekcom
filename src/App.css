@@ -9,28 +9,75 @@ main {
   z-index: 1;
 }
 
-/* Glass morphism utility classes */
+/* Glass morphism utility classes — lifted slate glass on graphite */
 .glass {
-  background: rgba(13, 13, 13, 0.4);
+  background: rgba(var(--rgb-slate), 0.55);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(212, 197, 185, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.28);
 }
 
 .glass-strong {
-  background: rgba(13, 13, 13, 0.7);
+  background: rgba(var(--rgb-slate), 0.82);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(212, 197, 185, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
 }
 
 .glass-light {
-  background: rgba(212, 197, 185, 0.05);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(212, 197, 185, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Automotive "speed stripe" — thin leather→forest pinstripe that fades in
+   on card hover, like a body-side accent line */
+.experience-card,
+.project-card,
+.degree-card,
+.skill-group,
+.interest-card,
+.stat-card {
+  position: relative;
+}
+
+.experience-card::before,
+.project-card::before,
+.degree-card::before,
+.skill-group::before,
+.interest-card::before,
+.stat-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 22px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: linear-gradient(
+    to bottom,
+    var(--color-leather-light),
+    var(--color-forest-light)
+  );
+  opacity: 0;
+  transform: scaleY(0.4);
+  transform-origin: center;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.experience-card:hover::before,
+.project-card:hover::before,
+.degree-card:hover::before,
+.skill-group:hover::before,
+.interest-card:hover::before,
+.stat-card:hover::before {
+  opacity: 0.9;
+  transform: scaleY(1);
 }
 
 /* Gradient text */
@@ -44,42 +91,4 @@ main {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-/* Smooth animations */
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -1000px 0;
-  }
-  100% {
-    background-position: 1000px 0;
-  }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-pulse {
-  animation: pulse 4s ease-in-out infinite;
 }

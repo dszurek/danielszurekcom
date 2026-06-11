@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useSectionInView } from "../hooks/useSectionInView";
 import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from "react-icons/fa";
 import ecocarLogo from "../images/ecocar_logo.png";
 import ssabLogo from "../images/ssab_logo.png";
@@ -8,39 +8,67 @@ import bgLogo from "../images/bg_logo.png";
 import "./Experience.css";
 
 const Experience = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const experiences = [
+    {
+      id: 0,
+      company: "General Motors",
+      position: "ADAS Software Engineer Intern",
+      location: "Milford, MI",
+      period: "May 2026 - August 2026",
+      summary:
+        "Joining GM's data recording team to build an agentic, LLM-driven pipeline that authors signal recording definition functions on its own — work that trims manual authoring time by roughly 80% and feeds critical event capture for more than ten ADAS feature teams, all while getting hands-on with real-world vehicle testing and validation.",
+      achievements: [
+        "Engineered an agentic LLM-driven automation pipeline in Python using the GitHub API to auto-generate signal recording definition functions, reducing manual authoring time by 80%",
+        "Developed data recording infrastructure supporting over 10 ADAS feature teams, ensuring critical event data capture for safety-critical system validation",
+        "Gained hands-on exposure to real-world vehicle testing and validation, bridging software development with physical test environments",
+        "Collaborated cross-functionally with ADAS feature teams to identify recording requirements and translate them into automated, scalable software solutions",
+      ],
+      technologies: [
+        "Python",
+        "GitHub API",
+        "LLM Integration",
+        "Agentic AI",
+        "ADAS",
+        "Code Generation",
+      ],
+      logo: null,
+      isCurrent: true,
+    },
     {
       id: 1,
       company: "EcoCAR EV Challenge - The University of Alabama",
       position: "Connected and Automated Vehicle (CAV) Lead",
       location: "Tuscaloosa, AL",
-      period: "August 2025 - Present",
-      description:
-        "Spearheading a team of 15+ undergraduates in the final year of the EcoCAR EV Challenge. Leading development of advanced vehicle technologies including lane-keep assist, driver monitoring, adaptive cruise control, and V2X connectivity. Contributing to research on genetic algorithms, model predictive control (MPC), and reinforcement learning for autonomous systems.",
+      period: "September 2025 - Present",
+      summary:
+        "I lead a 15-student team building the full self-driving stack on a pre-production Cadillac Lyriq — Lane Centering, Cooperative Adaptive Cruise Control, V2X connectivity, and multi-sensor fusion — pairing MPC/PID longitudinal control with a Stanley lateral controller and a GNN fusion pipeline, then proving it all out through rigorous hardware- and vehicle-in-the-loop testing.",
       achievements: [
-        "Leading 15+ student team developing full-stack ADAS for Cadillac Lyriq",
-        "Researching hybrid DRL/MPC controllers and Gaussian Processes for optimization",
-        "Expected to publish 3 research papers by May 2026",
+        "Architected the autonomous navigation stack for a pre-production Cadillac Lyriq integrating Lane Centering, CACC, and V2X",
+        "Developed MPC/PID longitudinal control, a lateral Stanley controller, and a GNN-based sensor fusion pipeline",
+        "Validated system performance through rigorous HIL and VIL testing on safety-critical software",
+        "Led a team of 15 students in the final year of the EcoCAR EV Challenge",
+        "1st in Vehicle Technical Specifications; 2nd in MathWorks Model-Based Design, Automatic Intersection Navigation, and CAV Presentations; 3rd in Automatic Intersection Navigation Energy Consumption",
+        "Conducted research on Gaussian Processes, MPC, and reinforcement learning for autonomous systems",
       ],
       technologies: [
-        "Python",
         "MATLAB",
         "Simulink",
         "RTMaps",
+        "Python",
+        "C++",
         "Sensor Fusion",
         "MPC",
+        "Stanley Controller",
+        "V2X",
         "Reinforcement Learning",
       ],
       logo: ecocarLogo,
       progression: [
         {
           title: "CAV Lead",
-          period: "Aug 2025 - Present",
+          period: "Sep 2025 - Present",
           note: "Leading overall CAV system architecture, team coordination, and AI research efforts",
         },
         {
@@ -61,20 +89,21 @@ const Experience = () => {
       position: "Data Science Co-Op",
       location: "Mobile, AL",
       period: "May 2025 - August 2025",
-      description:
-        "Designed and implemented a project portfolio dashboard in Power BI, automating quarterly financial reporting. Built cost-comparison solutions in Tableau and SQL, simplified workflows for datasets exceeding 1,000 rows. Built dashboards tracking metrics and production capacity using large, live datasets to define optimal targets for leadership. Led presentations for senior managers and hosted international meetings with colleagues in Sweden and Finland.",
+      summary:
+        "Built automated ETL pipelines in Azure Data Factory and SQL and turned them into Power BI and Tableau dashboards that drove quarterly financial reporting and live, sensor-fed production targeting — giving plant leadership the numbers to set optimal targets, which I regularly presented to senior managers and international colleagues in Sweden and Finland.",
       achievements: [
-        "Automated multi-year backlog project in under one month with Power BI portfolio",
-        "Developed Tableau dashboards processing 1,000+ row datasets for cost optimization",
-        "Built Grafana real-time dashboards with 10,000+ historical records for production targeting",
-        "Led international business meetings across Sweden, Finland, and USA",
+        "Engineered automated ETL pipelines using Azure Data Factory and SQL to process large-scale manufacturing datasets",
+        "Designed and implemented a project portfolio dashboard in Power BI, automating quarterly financial reporting",
+        "Built and deployed cost-comparison solutions in Tableau and SQL, simplifying workflows for high-volume datasets",
+        "Built dynamic production capacity models in Power BI, enabling leadership to define optimal targets based on live sensor data",
+        "Led presentations for senior managers and hosted international meetings with colleagues in Sweden and Finland",
       ],
       technologies: [
+        "Azure Data Factory",
         "Power BI",
         "Tableau",
-        "Grafana",
         "SQL",
-        "Azure Data Factory",
+        "Grafana",
         "Tableau Prep",
       ],
       logo: ssabLogo,
@@ -85,8 +114,8 @@ const Experience = () => {
       position: "Process Development Intern",
       location: "Birmingham, AL",
       period: "May 2024 - August 2024; December 2024 - January 2025",
-      description:
-        "Developed and deployed an insurance claim management database and application, replacing manual Excel workflows. Automated reporting pipelines, reducing manual report generation time and improving data visualization for leadership. Designed a Trello API-integrated ticketing system for internal IT support. Built an audit and reporting tool for an internal contractor watchlist, enhancing compliance tracking.",
+      summary:
+        "Replaced brittle, manual Excel workflows with a Power Apps database application and automated reporting pipelines on Azure Databricks and Power BI — plus a Trello-integrated IT ticketing system and a contractor-watchlist audit tool — cutting report generation time and making compliance far easier for leadership to track.",
       achievements: [
         "Replaced manual Excel workflows with Power Apps database application",
         "Automated reporting pipelines with Azure Databricks and Power BI",
@@ -184,13 +213,20 @@ const Experience = () => {
                         src={exp.logo}
                         alt={`${exp.company} logo`}
                         className="company-logo"
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <FaBriefcase />
                     )}
                   </div>
                   <div className="experience-title-section">
-                    <h3 className="experience-position">{exp.position}</h3>
+                    <h3 className="experience-position">
+                      {exp.position}
+                      {exp.isCurrent && (
+                        <span className="upcoming-tag">Current</span>
+                      )}
+                    </h3>
                     <h4 className="experience-company">{exp.company}</h4>
                   </div>
                 </div>
@@ -206,7 +242,9 @@ const Experience = () => {
                   </span>
                 </div>
 
-                <p className="experience-description">{exp.description}</p>
+                {exp.summary && (
+                  <p className="experience-summary">{exp.summary}</p>
+                )}
 
                 <div className="experience-achievements">
                   <h5>Key Achievements:</h5>

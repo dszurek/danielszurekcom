@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Renderer, Camera, Geometry, Program, Mesh } from 'ogl';
 import './AnimatedBackground.css';
 
-const defaultColors = ['#F5E6D3', '#8B5A3C', '#2D4A3E'];
+const defaultColors = ['#EFE7DD', '#C79A6B', '#5A8270'];
 
 const hexToRgb = hex => {
   hex = hex.replace(/^#/, '');
@@ -95,19 +95,39 @@ const AnimatedBackground = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({ depth: false, alpha: true });
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    // If WebGL is unavailable (GPU blocklist, locked-down browsers), skip the
+    // particle field entirely rather than crashing the app — the CSS
+    // background color still renders.
+    let renderer;
+    try {
+      renderer = new Renderer({
+        depth: false,
+        alpha: true,
+        dpr: Math.min(window.devicePixelRatio || 1, 2),
+      });
+    } catch {
+      return;
+    }
     const gl = renderer.gl;
+    if (!gl) return;
     container.appendChild(gl.canvas);
     gl.clearColor(0, 0, 0, 0);
 
     const camera = new Camera(gl, { fov: 15 });
     camera.position.set(0, 0, cameraDistance);
 
+    let sceneReady = false;
     const resize = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
       renderer.setSize(width, height);
       camera.perspective({ aspect: gl.canvas.width / gl.canvas.height });
+      // With the animation loop off, repaint the single static frame
+      if (prefersReducedMotion && sceneReady) renderFrame();
     };
     window.addEventListener('resize', resize, false);
     resize();
@@ -136,7 +156,8 @@ const AnimatedBackground = ({
       };
     };
 
-    if (moveParticlesOnHover) {
+    const interactive = moveParticlesOnHover && !prefersReducedMotion;
+    if (interactive) {
       window.addEventListener('mousemove', handleMouseMove);
     }
 
@@ -200,7 +221,7 @@ const AnimatedBackground = ({
       vertex: lineVertex,
       fragment: lineFragment,
       uniforms: {
-        uColor: { value: new Float32Array([0.54, 0.35, 0.23]) } // Leather brown color
+        uColor: { value: new Float32Array([0.78, 0.60, 0.42]) } // Brightened leather accent
       },
       transparent: true,
       depthTest: false
@@ -214,8 +235,7 @@ const AnimatedBackground = ({
     // Check for touch capability to disable interaction physics
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-    const update = () => {
-      animationFrameId = requestAnimationFrame(update);
+    const renderFrame = () => {
       time += 0.01;
 
       const positions = pGeometry.attributes.position.data;
@@ -309,13 +329,31 @@ const AnimatedBackground = ({
       renderer.render({ scene: linesMesh, camera, clear: false });
     };
 
-    animationFrameId = requestAnimationFrame(update);
+    const loop = () => {
+      animationFrameId = requestAnimationFrame(loop);
+      renderFrame();
+    };
+
+    // Don't burn frames while the tab is hidden
+    const onVisibilityChange = () => {
+      cancelAnimationFrame(animationFrameId);
+      if (!document.hidden) loop();
+    };
+
+    sceneReady = true;
+    if (prefersReducedMotion) {
+      renderFrame(); // single static frame, no animation loop
+    } else {
+      loop();
+      document.addEventListener('visibilitychange', onVisibilityChange);
+    }
 
     return () => {
       window.removeEventListener('resize', resize);
-      if (moveParticlesOnHover) {
+      if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       cancelAnimationFrame(animationFrameId);
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);

@@ -1,21 +1,19 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useSectionInView } from "../hooks/useSectionInView";
 import ReactGA from 'react-ga4';
 import {
   FaEnvelope,
   FaGithub,
   FaLinkedin,
-  FaTwitter,
+  FaMapMarkerAlt,
   FaPaperPlane,
+  FaPhone,
 } from "react-icons/fa";
 import "./Contact.css";
 
 const Contact = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,12 +39,12 @@ const Contact = () => {
     try {
       // Encode form data for Netlify
       const formElement = e.target;
-      const formData = new FormData(formElement);
+      const payload = new FormData(formElement);
 
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
+        body: new URLSearchParams(payload).toString(),
       });
 
       if (response.ok) {
@@ -141,7 +139,7 @@ const Contact = () => {
                   <FaEnvelope className="detail-icon" />
                   <div>
                     <h4>Email</h4>
-                    <a 
+                    <a
                       href="mailto:djszurek@crimson.ua.edu"
                       onClick={() => ReactGA.event({
                         category: 'Contact',
@@ -151,6 +149,29 @@ const Contact = () => {
                     >
                       djszurek@crimson.ua.edu
                     </a>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaPhone className="detail-icon" />
+                  <div>
+                    <h4>Phone</h4>
+                    <a
+                      href="tel:+12052136132"
+                      onClick={() => ReactGA.event({
+                        category: 'Contact',
+                        action: 'Click',
+                        label: 'Phone Link',
+                      })}
+                    >
+                      +1 (205) 213-6132
+                    </a>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaMapMarkerAlt className="detail-icon" />
+                  <div>
+                    <h4>Location</h4>
+                    <span>Tuscaloosa, AL, USA</span>
                   </div>
                 </div>
               </div>
@@ -297,11 +318,6 @@ const Contact = () => {
                   className="error-message"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  style={{
-                    color: "#ff6b6b",
-                    marginTop: "1rem",
-                    textAlign: "center",
-                  }}
                 >
                   ✗ Failed to send message. Please try again or email me
                   directly.
@@ -319,7 +335,7 @@ const Contact = () => {
         >
           <div className="footer-content">
             <p className="footer-text">
-              © 2025 Daniel Szurek. All rights reserved.
+              © {new Date().getFullYear()} Daniel Szurek. All rights reserved.
             </p>
             <div className="footer-links">
               <a href="#hero">Back to Top</a>

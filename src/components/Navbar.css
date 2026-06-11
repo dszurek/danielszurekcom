@@ -9,7 +9,7 @@
 }
 
 .navbar.scrolled {
-  background: rgba(10, 10, 10, 0.8);
+  background: rgba(28, 31, 35, 0.82);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(212, 197, 185, 0.1);
@@ -18,7 +18,7 @@
 }
 
 .navbar.mobile-open {
-  background: rgba(10, 10, 10, 0.95);
+  background: rgba(28, 31, 35, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(212, 197, 185, 0.1);
@@ -30,6 +30,68 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+/* PRND-style gear readout — P at the top, D1–D6 as you drive down the page */
+.gear-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.7rem;
+  font-family: var(--font-mono);
+  background: rgba(var(--rgb-slate), 0.55);
+  border: 1px solid rgba(var(--rgb-beige), 0.14);
+  border-radius: 8px;
+  cursor: default;
+  user-select: none;
+}
+
+.gear-label {
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.gear-window {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2ch;
+  height: 1.25em;
+  overflow: hidden;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.gear-value {
+  display: inline-block;
+  color: var(--color-forest-light);
+  text-shadow: 0 0 10px rgba(var(--rgb-forest-light), 0.55);
+}
+
+/* Scroll progress stripe along the navbar's bottom edge */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-leather-brown),
+    var(--color-leather-light),
+    var(--color-forest-light)
+  );
+  transform-origin: left;
+  pointer-events: none;
 }
 
 .navbar-logo {
@@ -117,6 +179,26 @@
   transform: translateY(-2px);
 }
 
+/* Scroll-spy: the section under the viewport centre gets a leather underline */
+.navbar-link.active {
+  color: var(--color-beige-light);
+}
+
+.navbar-link.active::after {
+  content: "";
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 0.35rem;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-leather-light),
+    var(--color-forest-light)
+  );
+}
+
 .mobile-menu-toggle {
   display: block;
   background: none;
@@ -159,7 +241,7 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: rgba(10, 10, 10, 0.95);
+  background: rgba(28, 31, 35, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(212, 197, 185, 0.1);
@@ -181,6 +263,11 @@
   background: rgba(212, 197, 185, 0.08);
   color: var(--color-beige-light);
   padding-left: 2.5rem;
+}
+
+.mobile-menu-link.active {
+  color: var(--color-beige-light);
+  border-left: 3px solid var(--color-leather-light);
 }
 
 @media (min-width: 768px) {

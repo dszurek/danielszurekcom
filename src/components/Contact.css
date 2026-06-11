@@ -86,6 +86,7 @@
 }
 
 .detail-item div a,
+.detail-item div span,
 .detail-item div p {
   color: var(--color-text-muted);
   text-decoration: none;
@@ -168,7 +169,7 @@
   padding: 1rem 1.5rem;
   border-radius: 15px;
   border: 2px solid rgba(212, 197, 185, 0.1);
-  background: rgba(13, 13, 13, 0.5);
+  background: rgba(var(--rgb-slate), 0.55);
   color: var(--color-text);
   font-size: 1rem;
   font-family: "Inter", sans-serif;
@@ -180,7 +181,7 @@
 .form-group textarea:focus {
   outline: none;
   border-color: var(--color-leather-light);
-  background: rgba(13, 13, 13, 0.7);
+  background: rgba(var(--rgb-slate), 0.78);
   box-shadow: 0 0 0 4px rgba(139, 90, 60, 0.1);
 }
 
@@ -243,6 +244,14 @@
   background: rgba(45, 74, 62, 0.3);
   border: 1px solid var(--color-forest-light);
   color: var(--color-beige-light);
+  font-size: 0.95rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.error-message {
+  margin-top: 1rem;
+  color: #ff6b6b;
   font-size: 0.95rem;
   text-align: center;
   font-weight: 500;

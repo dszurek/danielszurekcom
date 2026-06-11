@@ -2,67 +2,75 @@
 
 [Website (live)](https://www.danielszurek.com) • [LinkedIn](https://www.linkedin.com/in/danielszurek) • [GitHub](https://github.com/dszurek)
 
----
+ADAS software engineer portfolio — autonomous vehicle systems, applied machine
+learning, and the projects behind them. Built with React + Vite and styled as an
+automotive instrument cluster: detection-frame hero, PRND gear navigation,
+gauge-dial stats, and lane-marking section dividers.
 
-## About
+## Design language
 
-Hello — I’m Daniel, an MS Computer Science student specializing in autonomous vehicle systems, artificial intelligence, and software engineering. This portfolio showcases some of my experience!
+- **Theme**: lifted graphite/slate base with leather + forest-green accents
+  (CSS variables in `src/index.css`)
+- **Type**: Playfair Display (display), Inter (body), IBM Plex Mono (HUD elements
+  — gear readout, classification chip, status pills)
+- **Automotive motifs**: perception-style detection frame around the hero name,
+  AV-stack status pills (Perception / Planning / Control), PRND gear indicator
+  tied to scroll position, speedometer-dial stats, dashed lane-line dividers,
+  WebGL particle "sensor field" background
 
----
+## Codebase map
 
-## Features & Design
-
-- Modern, responsive UI with glassmorphism and some of my favorite color palettes
-- Dynamic background particles + parallax motion with Framer Motion
-- Accessible and mobile-friendly layout
-- Netlify Forms integrated for secure contact form submissions
-
-## Local Setup (Quick Start)
-
-If you'd like to run this portfolio site locally or modify it for your own needs, follow these steps:
-
-Clone the repository and run the dev server locally:
-
-```powershell
-# clone and navigate
-git clone https://github.com/dszurek/dszurekportfolio.git
-cd dszurekportfolio
-
-# install dependencies
-npm install
-
-# run dev server
-npm run dev
+```
+index.html                     Entry — fonts, SEO/OG metadata, Netlify form stub
+src/
+  main.jsx                     React root
+  App.jsx                      Section layout, GA init, MotionConfig
+  index.css                    Design tokens (colors, fonts) + global styles
+  App.css                      Shared utilities: glass, speed-stripe, gradient text
+  hooks/
+    useSectionInView.js        Shared IntersectionObserver entrance trigger
+    useActiveSection.js        Scroll-spy for navbar links + gear indicator
+  components/                  One component + CSS pair per section
+    Navbar.jsx/.css            Fixed nav: scroll-spy links, gear readout, progress stripe
+    Hero.jsx/.css              Detection-frame identity, status pills, radar rings
+    About.jsx/.css             Intro, interests, gauge-dial stats, favorites
+    Projects.jsx/.css          Featured "Pole Position" showcase, filterable grid, modal
+    Experience.jsx/.css        Timeline with role progressions
+    Education.jsx/.css         Degrees + coursework
+    Skills.jsx/.css            Skill groups, ADAS toolkit first
+    Contact.jsx/.css           Netlify form, contact details, footer
+    BodyLine.jsx/.css          Lane-marking section divider
+    AnimatedBackground.jsx/.css  WebGL (ogl) particle field
+  images/                      Project/logo assets (bundled by Vite)
+  other/                       Resume PDF (bundled for download)
+public/                        Static assets served as-is (favicon, OG image)
 ```
 
-Open http://localhost:3000 in your browser to preview the site.
+## Performance notes
 
----
+- Scroll effects run on Framer Motion **motion values** (`useScroll`) — no React
+  re-renders per scroll frame
+- Scroll-spy and entrance animations use IntersectionObservers
+- The WebGL background pauses when the tab is hidden and renders a single static
+  frame under `prefers-reduced-motion`; device pixel ratio capped at 2
+- Below-the-fold images are lazy-loaded; Google Fonts trimmed to used weights
+- GA4 runs in test mode outside production builds
+
+## Local setup
+
+```bash
+git clone https://github.com/dszurek/dszurekportfolio.git
+cd dszurekportfolio
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build to dist/
+```
 
 ## Deployment
 
-I deploy this site using Netlify. The contact form uses Netlify Forms so messages are processed server-side and routed to the configured email.
-
-To deploy your own copy:
-
-- Connect the repo to Netlify and enable continuous deploys
-- Configure site build command `npm run build` and publish folder `dist`
-- Configure Email notifications in the Forms section of Netlify
-
----
-
-## Accessibility & Security Notes
-
-- This portfolio is static and safe to host as a public repo (no API keys or secrets in the code).
-- The contact form is integrated with Netlify Forms and uses a honeypot to reduce spam.
-
----
-
-## Contributing
-
-Thanks for checking out my portfolio! If you'd like to suggest fixes or improvements, feel free to open an issue or PR.
-
----
+Deployed on Netlify: build command `npm run build`, publish folder `dist`.
+The contact form uses Netlify Forms (honeypot spam protection); configure email
+notifications in the Netlify Forms dashboard.
 
 ## Contact
 

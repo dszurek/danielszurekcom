@@ -1,20 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import {
-  FaGraduationCap,
-  FaAward,
-  FaCertificate,
-  FaBook,
-} from "react-icons/fa";
+import { useSectionInView } from "../hooks/useSectionInView";
+import { FaAward, FaBook } from "react-icons/fa";
 import uaLogo from "../images/ua_logo.png";
 import "./Education.css";
 
 const Education = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const education = [
     {
@@ -22,27 +14,34 @@ const Education = () => {
       degree: "Master of Science in Computer Science",
       institution: "The University of Alabama",
       location: "Tuscaloosa, AL",
-      period: "Expected December 2026",
-      gpa: "3.88/4.0",
+      period: "May 2025 - December 2026",
+      gpa: "3.67/4.0",
       description:
-        "Accelerated Master's Program focused on Artificial Intelligence, Machine Learning, and Autonomous Systems. Conducting research on genetic algorithms, model predictive control (MPC), reinforcement learning, and Gaussian Processes for vehicle efficiency optimization. Expected to publish 3 research papers by graduation.",
+        "Accelerated Master's Program (AMP) focused on Artificial Intelligence, Machine Learning, and Autonomous Systems. Conducting research on Model Predictive Control, reinforcement learning, and Gaussian Processes for V2X-aware autonomous navigation and vehicle efficiency optimization.",
       achievements: [
-        "Honors College member",
-        "Active AI and autonomous vehicle research",
-        "Expected 3 research paper publications by May 2026",
-        "Maintaining 3.88 GPA while leading 15-student team",
+        "Accelerated Master's Program (AMP) candidate",
+        "Active research on MPCs, RL, and Gaussian Processes for autonomous systems",
+        "Leading the EcoCAR CAV team through the final year of the EV Challenge",
       ],
-      icon: <img src={uaLogo} alt="UA Logo" className="degree-logo" />,
+      icon: (
+        <img
+          src={uaLogo}
+          alt="UA Logo"
+          className="degree-logo"
+          loading="lazy"
+          decoding="async"
+        />
+      ),
     },
     {
       id: 2,
       degree: "Bachelor of Science in Computer Science",
       institution: "The University of Alabama",
       location: "Tuscaloosa, AL",
-      period: "2022 - 2026",
-      gpa: "3.88/4.0",
+      period: "August 2022 - May 2026",
+      gpa: "3.87/4.0",
       description:
-        "Mathematics Minor. Comprehensive foundation in software development, algorithms, data structures, artificial intelligence, and system design. Active member of EcoCAR team throughout undergraduate career, progressing from UI developer to team lead.",
+        "Mathematics Minor. Comprehensive foundation in software development, algorithms, data structures, artificial intelligence, and system design. Active member of the EcoCAR team throughout undergraduate career, progressing from UI developer to Connected and Automated Vehicle Lead.",
       achievements: [
         "Honors College member",
         "Upsilon Pi Epsilon Computer Science Honor Society",
@@ -50,7 +49,15 @@ const Education = () => {
         "SEMA Memorial Scholarship recipient",
         "Dean's List all semesters",
       ],
-      icon: <img src={uaLogo} alt="UA Logo" className="degree-logo" />,
+      icon: (
+        <img
+          src={uaLogo}
+          alt="UA Logo"
+          className="degree-logo"
+          loading="lazy"
+          decoding="async"
+        />
+      ),
     },
   ];
 
@@ -133,11 +140,7 @@ const Education = () => {
             ))}
           </motion.div>
 
-          {/* Certifications & Courses Grid */}
           <div className="education-extra">
-            {/* Certifications */}
-
-            {/* Courses */}
             <motion.div
               className="courses-section glass"
               initial={{ opacity: 0, y: 50 }}
