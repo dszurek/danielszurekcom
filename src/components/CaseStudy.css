@@ -1,0 +1,355 @@
+/* ---- Shared scrollytelling case-study layout ----
+   Sticky visual panel on the left, scrolling text steps on the right.
+   Natural scrolling only — the panel is position: sticky, never pinned JS. */
+
+.case-study-block {
+  margin-bottom: 3rem;
+}
+
+.cs-header {
+  max-width: 760px;
+  margin-bottom: 1rem;
+}
+
+.case-study {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 3.5rem;
+  align-items: start;
+  margin: 0 auto 5rem;
+}
+
+.cs-visual {
+  position: sticky;
+  top: 110px; /* clears the fixed navbar */
+  padding: 2rem;
+}
+
+.cs-kicker {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-leather-light);
+  margin-bottom: 0.8rem;
+}
+
+.cs-title {
+  font-size: clamp(1.6rem, 3vw, 2.3rem);
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+
+.cs-intro {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+/* ---- Steps column ---- */
+
+.cs-steps {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-step {
+  min-height: 52vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.5rem 0;
+  opacity: 0.35;
+  transition: opacity 0.45s ease;
+}
+
+.cs-step.active {
+  opacity: 1;
+}
+
+.cs-step-index {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--color-forest-light);
+  margin-bottom: 0.7rem;
+}
+
+.cs-step h4 {
+  font-size: 1.35rem;
+  margin-bottom: 0.9rem;
+}
+
+.cs-step p {
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  max-width: 56ch;
+}
+
+.cs-step .cs-step-cta {
+  margin-top: 1.6rem;
+  align-self: flex-start;
+}
+
+/* ---- HUD signal-flow diagram (EcoCAR) ---- */
+
+.cs-diagram-frame {
+  position: relative;
+  border: 1px dashed rgba(var(--rgb-beige), 0.18);
+  border-radius: 10px;
+  padding: 1.6rem 1.4rem 1.2rem;
+  transition: border-color 0.45s ease, box-shadow 0.45s ease;
+}
+
+.cs-diagram-frame.active {
+  border-color: rgba(var(--rgb-forest-light), 0.75);
+  box-shadow: 0 0 24px rgba(var(--rgb-forest-light), 0.18);
+}
+
+.cs-frame-label {
+  position: absolute;
+  top: -0.62em;
+  right: 1rem;
+  padding: 0 0.5rem;
+  background: var(--color-darker);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: rgba(var(--rgb-beige), 0.5);
+  transition: color 0.45s ease;
+}
+
+.cs-diagram-frame.active .cs-frame-label {
+  color: var(--color-forest-light);
+}
+
+.cs-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.cs-node {
+  position: relative;
+  border: 1px solid rgba(var(--rgb-beige), 0.16);
+  border-left: 3px solid rgba(var(--rgb-beige), 0.16);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+  background: rgba(var(--rgb-slate), 0.45);
+  transition: border-color 0.45s ease, background 0.45s ease,
+    box-shadow 0.45s ease, opacity 0.45s ease;
+  opacity: 0.55;
+}
+
+.cs-node.active {
+  opacity: 1;
+  border-color: rgba(var(--rgb-leather-light), 0.6);
+  border-left-color: var(--color-leather-light);
+  background: rgba(var(--rgb-slate), 0.75);
+  box-shadow: 0 0 18px rgba(var(--rgb-leather), 0.22);
+}
+
+.cs-node-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--color-beige-light);
+}
+
+.cs-node-sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+  margin-top: 0.25rem;
+}
+
+/* Connector between nodes */
+.cs-connector {
+  width: 2px;
+  height: 1.1rem;
+  margin: 0 auto;
+  background: rgba(var(--rgb-beige), 0.18);
+  transition: background 0.45s ease;
+}
+
+.cs-connector.active {
+  background: var(--color-leather-light);
+  box-shadow: 0 0 8px rgba(var(--rgb-leather-light), 0.6);
+}
+
+/* ---- Result chips ---- */
+
+.cs-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.result-chip {
+  border: 1px solid rgba(var(--rgb-beige), 0.16);
+  border-left: 3px solid var(--color-forest-light);
+  border-radius: 6px;
+  padding: 0.65rem 0.85rem;
+  background: rgba(var(--rgb-slate), 0.5);
+}
+
+.result-chip .chip-place {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-beige-light);
+}
+
+.result-chip .chip-event {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+}
+
+/* ---- Research chart (Pareto front) ---- */
+
+.cs-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cs-chart .axis {
+  stroke: rgba(var(--rgb-beige), 0.3);
+  stroke-width: 1;
+}
+
+.cs-chart .axis-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  fill: var(--color-text-muted);
+}
+
+.cs-chart .pareto-path {
+  stroke: var(--color-leather-light);
+  stroke-width: 2.5;
+  fill: none;
+  filter: drop-shadow(0 0 6px rgba(var(--rgb-leather-light), 0.5));
+}
+
+.cs-chart .pareto-dot {
+  fill: var(--color-darker);
+  stroke: rgba(var(--rgb-beige), 0.5);
+  stroke-width: 1.5;
+  transition: fill 0.45s ease, stroke 0.45s ease, r 0.45s ease;
+}
+
+.cs-chart .pareto-dot.active {
+  fill: var(--color-forest-light);
+  stroke: var(--color-beige-light);
+}
+
+.cs-chart .dot-label {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.1em;
+  fill: var(--color-text-muted);
+  transition: fill 0.45s ease;
+}
+
+.cs-chart .dot-label.active {
+  fill: var(--color-beige-light);
+}
+
+/* Learning ↔ model-based spectrum beneath the chart */
+.cs-spectrum {
+  margin-top: 1.6rem;
+}
+
+.cs-spectrum-track {
+  position: relative;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-forest-light),
+    var(--color-leather-light)
+  );
+  opacity: 0.6;
+}
+
+.cs-spectrum-marker {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-darker);
+  border: 2px solid rgba(var(--rgb-beige), 0.5);
+  transition: border-color 0.45s ease, background 0.45s ease;
+}
+
+.cs-spectrum-marker.active {
+  background: var(--color-beige-light);
+  border-color: var(--color-beige-light);
+  box-shadow: 0 0 10px rgba(var(--rgb-beige), 0.6);
+}
+
+.cs-spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* ---- Responsive collapse: static, fully-lit visual above the steps ---- */
+
+@media (max-width: 900px) {
+  .case-study {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cs-visual {
+    position: static;
+    padding: 1rem 0;
+  }
+
+  .cs-step {
+    min-height: 0;
+    padding: 1.6rem 0;
+    opacity: 1; /* no dimming when there's no synced visual beside it */
+  }
+
+  /* Everything lit when the diagram can't track scroll position */
+  .cs-node,
+  .cs-diagram-frame .cs-node {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cs-step {
+    opacity: 1;
+  }
+
+  .cs-node {
+    opacity: 1;
+  }
+}

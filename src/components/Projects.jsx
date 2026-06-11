@@ -34,7 +34,11 @@ import budgieImg from "../images/budgie_light.png";
 import lispImg from "../images/lisp.png";
 import scaloxImg from "../images/scalox.png";
 
-const Projects = () => {
+/**
+ * Filterable project card grid + detail modal. Rendered inside FeaturedWork,
+ * below the two flagship case studies.
+ */
+const ProjectGrid = () => {
   const [ref, inView] = useSectionInView();
 
   const [selectedProject, setSelectedProject] = useState(null);
@@ -248,102 +252,13 @@ const Projects = () => {
     { id: "foundation", label: "Foundational" },
   ];
 
-  // Headline ADAS work, surfaced in the "Pole Position" showcase above the grid.
-  const featuredIds = [1, 9, 8];
-  const featuredProjects = featuredIds
-    .map((id) => projects.find((project) => project.id === id))
-    .filter(Boolean);
-
   const filteredProjects =
     filter === "all"
       ? projects
       : projects.filter((project) => project.category === filter);
 
   return (
-    <section id="projects" className="projects" ref={ref}>
-      <div className="projects-container">
-        <motion.div
-          className="projects-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="section-label">My Work</span>
-          <h2 className="section-title gradient-text">Featured Projects</h2>
-          <p className="section-description">
-            Autonomous systems, AI research, and enterprise solutions
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="featured-showcase"
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-        >
-          <div className="featured-banner">
-            <span className="featured-flag" aria-hidden="true" />
-            <span className="featured-eyebrow">Pole Position</span>
-            <span className="featured-subline">Headline ADAS work</span>
-          </div>
-
-          <div className="featured-grid">
-            {featuredProjects.map((project, index) => (
-              <motion.article
-                key={project.id}
-                className="featured-card glass"
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                transition={{ duration: 0.5, delay: 0.25 + index * 0.12 }}
-                whileHover={{ y: -8 }}
-                onClick={() => handleProjectClick(project)}
-              >
-                <span className="featured-stripe" aria-hidden="true" />
-                <span className="featured-index">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="featured-media">
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.imageAlt}
-                      className="featured-img"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    <div className="project-img-fallback featured-fallback">
-                      <div className="fallback-icons">
-                        {project.icons.map((icon, i) => (
-                          <span key={i} className="fallback-icon">
-                            {icon}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  <span className="featured-badge">ADAS</span>
-                </div>
-                <div className="featured-body">
-                  <h3 className="featured-title">{project.title}</h3>
-                  <p className="featured-desc">{project.description}</p>
-                  <div className="featured-tech">
-                    {project.technologies.slice(0, 4).map((tech, i) => (
-                      <span key={i} className="tech-tag">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </motion.div>
-
-        <div className="projects-divider">
-          <span>All Projects</span>
-        </div>
-
+    <div className="project-grid-block" ref={ref}>
         <motion.div
           className="projects-filters"
           initial={{ opacity: 0, y: 30 }}
@@ -465,7 +380,6 @@ const Projects = () => {
             ))}
           </AnimatePresence>
         </motion.div>
-      </div>
 
       <AnimatePresence>
         {selectedProject && (
@@ -562,8 +476,8 @@ const Projects = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </div>
   );
 };
 
-export default Projects;
+export default ProjectGrid;

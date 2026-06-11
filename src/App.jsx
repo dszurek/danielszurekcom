@@ -2,8 +2,9 @@ import React from "react";
 import { MotionConfig } from "framer-motion";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import CredibilityStrip from "./components/CredibilityStrip";
 import About from "./components/About";
-import Projects from "./components/Projects";
+import FeaturedWork from "./components/FeaturedWork";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
@@ -24,9 +25,10 @@ function App() {
         <Navbar />
         <main>
           <Hero />
+          <CredibilityStrip />
           <About />
           <BodyLine />
-          <Projects />
+          <FeaturedWork />
           <BodyLine flip />
           <Experience />
           <BodyLine />
