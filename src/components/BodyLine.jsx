@@ -1,13 +1,22 @@
 import React from "react";
+import { useInView } from "react-intersection-observer";
 import "./BodyLine.css";
 
 /**
  * Section divider styled as a road lane marking — a faint asphalt edge line with
  * a dashed centre stripe that "travels" down the road, plus a glowing reflective
- * stud at centre. A nod to the automotive theme. `flip` reverses travel direction.
+ * stud at centre. A signal pulse sweeps the line each time it scrolls into
+ * view. `flip` reverses travel direction.
  */
-const BodyLine = ({ flip = false }) => (
-  <div className={`body-line ${flip ? "flip" : ""}`} aria-hidden="true">
+const BodyLine = ({ flip = false }) => {
+  const [ref, inView] = useInView({ threshold: 0.5 });
+
+  return (
+    <div
+      ref={ref}
+      className={`body-line ${flip ? "flip" : ""} ${inView ? "in-view" : ""}`}
+      aria-hidden="true"
+    >
     <svg
       viewBox="0 0 1440 28"
       preserveAspectRatio="none"
@@ -31,8 +40,12 @@ const BodyLine = ({ flip = false }) => (
         stroke="url(#laneFade)"
       />
     </svg>
-    <span className="lane-stud" />
-  </div>
-);
+      <span className="lane-pulse-track">
+        <span className="lane-pulse" />
+      </span>
+      <span className="lane-stud" />
+    </div>
+  );
+};
 
 export default BodyLine;

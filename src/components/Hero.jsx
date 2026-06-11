@@ -6,7 +6,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
-import ReactGA from "react-ga4";
+import CtaLink from "./CtaLink";
 import "./Hero.css";
 
 /* Cycling perception-classifier labels — all 13 chars so the chip never resizes */
@@ -19,15 +19,23 @@ const classifications = [
 /* The canonical AV software stack, shown booting up */
 const stackSystems = ["Perception", "Planning", "Control"];
 
+/* Ignition pass (first visit this session): quick stagger so the whole
+   choreography — pills, corners, scan, chip — lands inside ~1.2s. Warm
+   visits skip the stagger entirely. */
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.3,
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
     },
   },
+};
+
+const warmContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
 };
 
 const itemVariants = {
@@ -47,6 +55,23 @@ const Hero = () => {
   const { scrollY } = useScroll();
   const parallaxY = useTransform(scrollY, (v) => v * 0.5);
 
+  // Ignition choreography plays once per session
+  const [warm] = useState(() => {
+    try {
+      return sessionStorage.getItem("ignition") === "done";
+    } catch {
+      return true;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      sessionStorage.setItem("ignition", "done");
+    } catch {
+      /* private mode — choreography simply replays */
+    }
+  }, []);
+
   const [classIndex, setClassIndex] = useState(0);
 
   useEffect(() => {
@@ -61,10 +86,10 @@ const Hero = () => {
   const { label, confidence } = classifications[classIndex];
 
   return (
-    <section id="hero" className="hero">
+    <section id="hero" className={`hero ${warm ? "warm" : "boot"}`}>
       <motion.div
         className="hero-content"
-        variants={containerVariants}
+        variants={warm ? warmContainerVariants : containerVariants}
         initial="hidden"
         animate="visible"
         style={{ y: shouldReduceMotion ? 0 : parallaxY }}
@@ -74,7 +99,7 @@ const Hero = () => {
             <span
               key={system}
               className="status-pill"
-              style={{ "--pill-delay": `${0.8 + i * 0.5}s` }}
+              style={{ "--pill-delay": warm ? "0s" : `${0.25 + i * 0.2}s` }}
             >
               <span className="status-dot" />
               {system}
@@ -119,39 +144,12 @@ const Hero = () => {
         </motion.p>
 
         <motion.div className="hero-cta" variants={itemVariants}>
-          <motion.a
-            href="#projects"
-            className="cta-button primary"
-            whileHover={{
-              scale: 1.05,
-              boxShadow: "0 10px 40px rgba(139, 90, 60, 0.4)",
-            }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              ReactGA.event({
-                category: "User Interaction",
-                action: "Click",
-                label: "Hero - View My Work",
-              })
-            }
-          >
-            View My Work
-          </motion.a>
-          <motion.a
-            href="#contact"
-            className="cta-button secondary"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() =>
-              ReactGA.event({
-                category: "User Interaction",
-                action: "Click",
-                label: "Hero - Get In Touch",
-              })
-            }
-          >
-            Get In Touch
-          </motion.a>
+          <CtaLink href="#contact" variant="primary" gaLabel="Hero - Get in touch">
+            Get in touch
+          </CtaLink>
+          <CtaLink href="#projects" variant="secondary" gaLabel="Hero - View work">
+            View my work
+          </CtaLink>
         </motion.div>
 
         <motion.div className="hero-scroll" variants={itemVariants}>

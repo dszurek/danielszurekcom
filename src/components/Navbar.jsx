@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import ReactGA from "react-ga4";
 import { useActiveSection } from "../hooks/useActiveSection";
+import CtaLink from "./CtaLink";
 import "./Navbar.css";
 
 /* Sections double as "gears": P while parked at the top, then D1–D6 as you
@@ -9,7 +10,7 @@ import "./Navbar.css";
 const navItems = [
   { name: "Home", href: "#hero", id: "hero", gear: "P" },
   { name: "About", href: "#about", id: "about", gear: "D1" },
-  { name: "Projects", href: "#projects", id: "projects", gear: "D2" },
+  { name: "Work", href: "#projects", id: "projects", gear: "D2" },
   { name: "Experience", href: "#experience", id: "experience", gear: "D3" },
   { name: "Education", href: "#education", id: "education", gear: "D4" },
   { name: "Skills", href: "#skills", id: "skills", gear: "D5" },
@@ -104,6 +105,15 @@ const Navbar = () => {
           ))}
         </div>
 
+        <CtaLink
+          href="#contact"
+          variant="primary"
+          className="compact navbar-cta"
+          gaLabel="Navbar - Get in touch"
+        >
+          Get in touch
+        </CtaLink>
+
         <button
           className="mobile-menu-toggle"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -141,6 +151,15 @@ const Navbar = () => {
                 {item.name}
               </motion.a>
             ))}
+            <CtaLink
+              href="#contact"
+              variant="primary"
+              className="compact mobile-menu-cta"
+              gaLabel="Navbar mobile - Get in touch"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Get in touch
+            </CtaLink>
           </motion.div>
         )}
       </AnimatePresence>
