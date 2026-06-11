@@ -23,17 +23,18 @@ hero, gear navbar, perf/a11y refactor), which is implemented but uncommitted.
   everywhere; resume download is secondary.
 - **Architecture: scrollytelling single page.** No router. Case studies are
   in-page sections; deep-linkable via anchors.
-- **Flagship case studies:** EcoCAR CAV stack and GP+MPC V2X research. The other
-  seven projects become a compact card grid (existing modal retained).
-- **Facts only.** New metrics/results come from Daniel (see Content Intake);
-  nothing invented. Until supplied, only numbers already on the site/resume
-  are used.
+- **Flagship case studies:** EcoCAR CAV stack and the controls research program
+  (three IEEE ITEC papers). The other projects become a compact card grid
+  (existing modal retained; the GP+MPC project card stays in the grid).
+- **Facts only.** All new content is sourced from the EVC Y4 Final Scoring
+  Report and the three paper abstracts in `src/other/`, plus Daniel's direct
+  account of his GM work (see Content Facts). Nothing invented.
 
 ## Page order
 
 Hero → Credibility strip → About (slimmed) → Featured Work (EcoCAR case study,
-GP+MPC case study, compact grid) → Experience → Education + Publications →
-Skills → Off the clock → Contact → Footer.
+research-program case study, compact grid) → Experience → Education +
+Publications → Skills → Off the clock → Contact → Footer.
 
 ## Feature design
 
@@ -72,16 +73,33 @@ around it. Mono labels, leather/forest accent palette, design tokens from
 3. Planning & V2X — CACC, automatic intersection navigation under noisy SPaT.
 4. Control — MPC/PID longitudinal, Stanley lateral.
 5. Validation — HIL/VIL on safety-critical software.
-6. Results — competition placements (existing: 1st VTS; 2nd MBD, AIN, CAV
-   Presentations; 3rd AIN Energy) + final-year results and metrics from
-   Content Intake, rendered as tick-up counters.
+6. Results — Year 4 final standings rendered as tick-up counters: 4th overall
+   of 13 universities; 1st CAV VTS evaluation; 2nd competition CAV
+   presentation; 2nd Automatic Intersection Navigation (CoDE Phase 2); 3rd AIN
+   energy consumption; 2nd Ride & Drive; tied-1st Over the Road. Plus the
+   MathWorks MBD placement already published on the site.
 
-**Case study B — GP+MPC V2X research** (`#work-gp-mpc`). Research-paper
-flavor, ~half the length: Problem (uncertainty under noisy SPaT) → Method
-(Gaussian Process learning + MPC) → Results. Sticky visual is an SVG chart of
-a GP confidence band that narrows as scroll progress advances
-(`useScroll` + `useTransform` driving path interpolation). Includes a
-publication/poster link slot fed by Content Intake.
+**Case study B — controls research program** (`#work-research`). The story of
+one research question — how do you combine learning-based methods with
+model-based control for safe, efficient autonomy? — told through the three
+papers presented at IEEE ITEC:
+
+1. *Robust Multi-Objective Genetic Algorithm (R-MOGA) for AIN under SPaT
+   Uncertainty* — NSGA-II + Monte Carlo evaluation; robustness to noisy
+   signal timing as an implicit objective.
+2. *Hybrid DRL-MPC Frameworks for Safe and Adaptive Eco-Driving Control* —
+   DRL strategy layer over a safety-critical MPC that enforces constraints.
+3. *RL vs. MPC for Lane Centering* — SAC (MATLAB RL Toolbox + Simulink)
+   compared head-to-head against an MPC baseline.
+
+Headline stat: **3 papers presented at IEEE ITEC**, with the CAV final
+presentation upcoming at ASME DRIVN (September 2026). Sticky visual: an SVG
+Pareto-front / trade-off chart (energy vs. time vs. comfort) that animates as
+scroll progress advances (`useScroll` + `useTransform` driving path
+interpolation), echoing the R-MOGA multi-objective theme; each step highlights
+where its paper sits on a learning ↔ model-based spectrum beneath the chart.
+Paper abstracts are qualitative, so this case study uses counts and placements
+for counters — no invented performance numbers.
 
 **Diagram accessibility:** SVGs are `aria-hidden`; all information lives in
 the step text.
@@ -123,22 +141,37 @@ the step text.
 
 ### 6. Content updates (real facts)
 
-- **Experience/GM:** projected-sounding bullets replaced with actual
-  in-progress accomplishments (Content Intake), present-tense framing.
-- **Experience/EcoCAR:** final-year competition results added.
-- **Education:** new "Research & Publications" block listing papers, posters,
-  and talks with venue + link (Content Intake). Omitted gracefully if empty.
+- **Experience/GM:** bullets rewritten in present tense around actual work
+  (see Content Facts): the end-to-end Jira → function generation → GitHub PR
+  automation and IBM Rhapsody model updating. The "80% authoring time" and
+  "10+ feature teams" figures stay only as program-context framing (they are
+  already published on the site/resume), not as personal completed claims.
+- **Experience/EcoCAR:** Year 4 final results added (see case study A results
+  list); the dated bullet list is updated to match.
+- **Education:** new "Research & Publications" block listing the three IEEE
+  ITEC papers and the upcoming ASME DRIVN presentation (marked "upcoming ·
+  Sep 2026"), each with a one-line summary; link slots point to papers when
+  Daniel publishes/uploads them (omitted until then).
 - **Off the clock strip (new component):** single compact horizontal strip —
   condensed music/books covers + one line of hobbies — placed before Contact.
 
-## Content Intake (Daniel supplies at spec review; defined input contract)
+## Content Facts (resolved 2026-06-10)
 
-1. GM internship: 2–4 real in-progress accomplishments.
-2. EcoCAR: final-year competition results/awards.
-3. Publications/posters/talks: title, venue, date, link (any number, incl. 0).
-4. Case-study metrics: any real figures (e.g., tracking error, AIN success
-   rate, fusion latency, energy results). Counters render only supplied or
-   already-published numbers; unsupplied slots are omitted, never faked.
+1. **GM internship (3 weeks in, present tense):** building an end-to-end
+   automation pipeline that takes a Jira ticket, generates the signal
+   recording function, and opens a GitHub PR — using the Jira API and GitHub
+   Copilot API — plus automated IBM Rhapsody model updates via its API.
+2. **EcoCAR Y4 final (source: `src/other/EVC_Y4_Final_Report.pdf`):** 4th
+   overall of 13; 1st CAV VTS evaluation; 2nd COMP Presentation CAV; 2nd CoDE
+   Phase 2 (AIN); 3rd CARB CAV Energy AIN (relative); 2nd Ride & Drive;
+   tied-1st Over the Road.
+3. **Publications (presented at IEEE ITEC):** R-MOGA for AIN under SPaT
+   Uncertainty; Hybrid DRL-MPC Frameworks for Safe and Adaptive Eco-Driving
+   Control; RL vs. MPC for Lane Centering. **Upcoming:** CAV final
+   presentation at ASME DRIVN, September 2026.
+4. **Metrics:** paper abstracts are qualitative; counters use competition
+   placements, paper counts, team size (15), and figures already published on
+   the site/resume. No other numbers.
 
 ## Performance & accessibility
 
