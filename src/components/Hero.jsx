@@ -16,8 +16,6 @@ const classifications = [
   { label: "ML_RESEARCHER", confidence: "0.97" },
 ];
 
-/* The canonical AV software stack, shown booting up */
-const stackSystems = ["Perception", "Planning", "Control"];
 
 /* Ignition pass (first visit this session): quick stagger so the whole
    choreography — pills, corners, scan, chip — lands inside ~1.2s. Warm
@@ -94,19 +92,6 @@ const Hero = () => {
         animate="visible"
         style={{ y: shouldReduceMotion ? 0 : parallaxY }}
       >
-        <motion.div className="hero-status" variants={itemVariants}>
-          {stackSystems.map((system, i) => (
-            <span
-              key={system}
-              className="status-pill"
-              style={{ "--pill-delay": warm ? "0s" : `${0.25 + i * 0.2}s` }}
-            >
-              <span className="status-dot" />
-              {system}
-            </span>
-          ))}
-        </motion.div>
-
         <motion.h1 className="hero-title" variants={itemVariants}>
           <span className="hero-greeting">Hello, I'm</span>
           <span className="detection-frame">

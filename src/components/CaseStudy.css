@@ -15,8 +15,14 @@
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: 3.5rem;
-  align-items: start;
   margin: 0 auto 5rem;
+}
+
+/* Sticky pattern that survives Safari's grid quirks: the column wrapper is a
+   plain grid child stretching the full row height, and the sticky element
+   lives inside it. Never make the grid item itself sticky. */
+.cs-visual-col {
+  min-width: 0;
 }
 
 .cs-visual {
@@ -328,6 +334,7 @@
 
   .cs-visual {
     position: static;
+    top: auto;
     padding: 1rem 0;
   }
 

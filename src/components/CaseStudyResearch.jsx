@@ -92,7 +92,8 @@ const CaseStudyResearch = () => {
       </header>
 
       <div className="case-study" ref={containerRef}>
-        <div className="cs-visual" aria-hidden="true">
+        <div className="cs-visual-col" aria-hidden="true">
+          <div className="cs-visual">
           <svg
             className="cs-chart"
             viewBox="0 0 320 240"
@@ -154,6 +155,7 @@ const CaseStudyResearch = () => {
               <span>Learning-based</span>
               <span>Model-based</span>
             </div>
+          </div>
           </div>
         </div>
 

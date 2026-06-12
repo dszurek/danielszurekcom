@@ -103,7 +103,8 @@ const CaseStudyEcoCar = () => {
       </header>
 
       <div className="case-study" ref={containerRef}>
-        <div className="cs-visual" aria-hidden="true">
+        <div className="cs-visual-col" aria-hidden="true">
+          <div className="cs-visual">
           <div
             className={`cs-diagram-frame ${validationLit ? "active" : ""}`}
           >
@@ -127,6 +128,7 @@ const CaseStudyEcoCar = () => {
                 </React.Fragment>
               ))}
             </div>
+          </div>
           </div>
         </div>
 
