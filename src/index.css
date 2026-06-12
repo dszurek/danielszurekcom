@@ -36,7 +36,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* `clip` prevents horizontal scroll without creating a scroll container,
+     which would silently break position: sticky (case-study panels). */
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -48,11 +51,13 @@ body {
   background-color: var(--color-darker);
   color: var(--color-text);
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 #root {
   width: 100%;
   overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1,
