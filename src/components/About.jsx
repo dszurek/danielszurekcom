@@ -5,7 +5,21 @@ import { FaCarSide, FaBrain, FaSatelliteDish, FaMicrochip, FaDownload } from "re
 import headshotImg from "../images/headshot.jpg";
 import resumePdf from "../other/daniel_szurek_resume.pdf";
 import ReactGA from 'react-ga4';
+import CtaLink from "./CtaLink";
+import SectionIndex from "./SectionIndex";
+import { useCountUp } from "../hooks/useCountUp";
 import "./About.css";
+
+/* Gauge readout that ticks up the first time it scrolls into view */
+const StatValue = ({ value, suffix = "", decimals = 0 }) => {
+  const [ref, display] = useCountUp(value, { decimals });
+  return (
+    <span ref={ref}>
+      {display}
+      {suffix}
+    </span>
+  );
+};
 
 const About = () => {
   const [ref, inView] = useSectionInView();
@@ -70,43 +84,6 @@ const About = () => {
     },
   ];
 
-  const favorites = {
-    music: [
-      {
-        title: "In Rainbows",
-        artist: "Radiohead",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/dd/50/c7/dd50c790-99ac-d3d0-5ab8-e3891fb8fd52/634904032463.png/100x100bb.jpg",
-      },
-      {
-        title: "Never Enough",
-        artist: "Daniel Caesar",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/24/4f/ec/244fec58-ea20-e0b0-eea6-e06c6aff948b/23UMGIM14483.rgb.jpg/100x100bb.jpg",
-      },
-      {
-        title: "Troupeau Bleu",
-        artist: "Cortex",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/72/9d/7a/729d7a9c-8b95-35e6-ac3d-7f54ce400ace/cover.jpg/100x100bb.jpg",
-      },
-    ],
-    books: [
-      {
-        title: "Dune Messiah",
-        author: "Frank Herbert",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Publication113/v4/89/bc/8d/89bc8d21-8dd7-75a0-ea6e-8ae136e87318/9781101157879.jpg/100x100bb.jpg",
-      },
-      {
-        title: "Greatest Hits",
-        author: "Harlan Ellison",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Publication221/v4/91/95/ac/9195ac34-4ad9-f76a-3f05-bb90b42f919c/9781454952121.jpg/100x100bb.jpg",
-      },
-      {
-        title: "Crime and Punishment",
-        author: "Fyodor Dostoevsky",
-        cover: "https://is1-ssl.mzstatic.com/image/thumb/Publication/v4/62/69/b2/6269b227-8903-9dcf-3b4a-e419853472bf/crime_and_punishment.jpg/100x100bb.jpg",
-      },
-    ],
-  };
-
   return (
     <section id="about" className="about" ref={sectionRef}>
       <div className="about-container" ref={ref}>
@@ -118,6 +95,7 @@ const About = () => {
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
+            <SectionIndex index={2} name="About" />
             <motion.span className="section-label" variants={itemVariants}>
               Get to know me
             </motion.span>
@@ -128,7 +106,7 @@ const About = () => {
               About Me
             </motion.h2>
             <motion.p className="section-description" variants={itemVariants}>
-              A glimpse into my world, passions, and what drives me
+              Who I am, what I build, and why
             </motion.p>
           </motion.div>
 
@@ -152,94 +130,46 @@ const About = () => {
             </div>
 
             <div className="intro-text">
-              <h3>Hey! I'm Daniel</h3>
+              <h3>I'm Daniel Szurek</h3>
               <p>
-                I'm a software engineer focused on Advanced Driver Assistance
-                Systems and autonomous vehicles. I recently completed my
-                Bachelor of Science in Computer Science at the University of
-                Alabama and am continuing into the Accelerated Master's Program
-                while leading the Connected and Automated Vehicle (CAV) effort
-                on the University's EcoCAR EV Challenge team.
+                I build software that helps vehicles drive themselves. I'm
+                completing the Accelerated Master's Program in Computer Science
+                at the University of Alabama while leading the Connected and
+                Automated Vehicle (CAV) team for the university's EcoCAR EV
+                Challenge program.
               </p>
               <p>
-                This summer I'm joining{" "}
+                This summer I'm at{" "}
                 <span className="highlight-text">General Motors</span> in
                 Milford, MI as an{" "}
-                <span className="highlight-text">ADAS Software Engineer Intern</span>,
-                building an LLM-powered coding agent to automate repetitive
-                function creation for the data recording team. On EcoCAR, I
-                architect the autonomous navigation stack for a pre-production
-                Cadillac Lyriq — integrating Lane Centering, Cooperative
-                Adaptive Cruise Control, and V2X connectivity into stock
-                onboard systems, with MPC/PID longitudinal control, a Stanley
-                lateral controller, and a GNN sensor fusion pipeline.
-              </p>
-              <p>
-                When I'm not coding, you can find me practicing my instrumental
-                music skills, traveling to new places, and reading (usually the
-                Dune series). Feel free to send me any song or book
-                recommendations in the contact section!
+                <span className="highlight-text">
+                  ADAS Software Engineer Intern
+                </span>
+                , automating the path from Jira ticket to reviewed pull request
+                for the data recording team. On EcoCAR, I architected the
+                autonomous navigation stack for a pre-production Cadillac Lyriq
+                — Lane Centering, Cooperative Adaptive Cruise Control, and V2X
+                connectivity built on stock onboard systems, with MPC/PID
+                longitudinal control, a Stanley lateral controller, and a GNN
+                sensor fusion pipeline.
               </p>
 
-              <motion.a
+              <CtaLink
                 href={resumePdf}
+                variant="secondary"
+                className="compact resume-cta"
                 download="Daniel_Szurek_Resume.pdf"
-                className="resume-button"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => ReactGA.event({
-                  category: 'Resume',
-                  action: 'Download',
-                  label: 'Resume Download',
-                })}
+                onClick={() =>
+                  ReactGA.event({
+                    category: "Resume",
+                    action: "Download",
+                    label: "Resume Download",
+                  })
+                }
               >
-                <FaDownload className="resume-icon" />
-                Download Resume
-              </motion.a>
-
-              <div className="favorites-divider"></div>
-
-              <div className="about-favorites">
-                <div className="favorites-group">
-                  <h4>On Repeat</h4>
-                  <div className="favorites-row">
-                    {favorites.music.map((item, index) => (
-                      <div key={index} className="favorite-item">
-                        <img
-                          src={item.cover}
-                          alt={item.title}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <div className="favorite-details">
-                          <span className="song-title">{item.title}</span>
-                          <span className="song-artist">{item.artist}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="favorites-group">
-                  <h4>Currently Reading</h4>
-                  <div className="favorites-row">
-                    {favorites.books.map((item, index) => (
-                      <div key={index} className="favorite-item">
-                        <img
-                          src={item.cover}
-                          alt={item.title}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                        <div className="favorite-details">
-                          <span className="song-title">{item.title}</span>
-                          <span className="song-artist">{item.author}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+                <FaDownload aria-hidden="true" />
+                Download resume
+              </CtaLink>
             </div>
           </motion.div>
         </motion.div>
@@ -279,9 +209,9 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             {[
-              { value: "15+", label: "Team Members Led", delay: 0.8 },
-              { value: "3.87", label: "Undergraduate GPA", delay: 0.9 },
-              { value: "ADAS", label: "Focus Area", delay: 1.0 },
+              { value: 15, suffix: "+", decimals: 0, label: "Team Members Led", delay: 0.8 },
+              { value: 3.87, suffix: "", decimals: 2, label: "Undergraduate GPA", delay: 0.9 },
+              { value: "ADAS", suffix: "", decimals: 0, label: "Focus Area", delay: 1.0 },
             ].map((stat) => (
               <div className="stat-card glass" key={stat.label}>
                 <div className="gauge">
@@ -299,7 +229,11 @@ const About = () => {
                         type: "spring",
                       }}
                     >
-                      {stat.value}
+                      <StatValue
+                        value={stat.value}
+                        suffix={stat.suffix}
+                        decimals={stat.decimals}
+                      />
                     </motion.div>
                     <div className="stat-label">{stat.label}</div>
                   </div>

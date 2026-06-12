@@ -8,7 +8,9 @@ import FeaturedWork from "./components/FeaturedWork";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
+import OffTheClock from "./components/OffTheClock";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import BodyLine from "./components/BodyLine";
 import AnimatedBackground from "./components/AnimatedBackground";
 import ReactGA from "react-ga4";
@@ -35,9 +37,11 @@ function App() {
           <Education />
           <BodyLine flip />
           <Skills />
+          <OffTheClock />
           <BodyLine />
           <Contact />
         </main>
+        <Footer />
       </div>
     </MotionConfig>
   );

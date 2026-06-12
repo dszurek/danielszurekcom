@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
+import SectionIndex from "./SectionIndex";
 import { FaCarSide, FaBrain, FaCode, FaCloud } from "react-icons/fa";
 import "./Skills.css";
 
@@ -107,6 +108,7 @@ const Skills = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
+          <SectionIndex index={6} name="Skills" />
           <span className="section-label">My Toolkit</span>
           <h2 className="section-title gradient-text">Technical Skills</h2>
           <p className="section-description">

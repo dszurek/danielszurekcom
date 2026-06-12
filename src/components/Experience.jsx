@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
+import SectionIndex from "./SectionIndex";
 import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from "react-icons/fa";
 import ecocarLogo from "../images/ecocar_logo.png";
 import ssabLogo from "../images/ssab_logo.png";
@@ -18,20 +19,19 @@ const Experience = () => {
       location: "Milford, MI",
       period: "May 2026 - August 2026",
       summary:
-        "Joining GM's data recording team to build an agentic, LLM-driven pipeline that authors signal recording definition functions on its own — work that trims manual authoring time by roughly 80% and feeds critical event capture for more than ten ADAS feature teams, all while getting hands-on with real-world vehicle testing and validation.",
+        "On GM's ADAS data recording team — the infrastructure that captures critical event data for more than ten ADAS feature teams — I'm building an end-to-end automation pipeline that takes a Jira ticket all the way to a reviewed GitHub pull request, with the goal of cutting manual signal-recording-function authoring time by roughly 80%.",
       achievements: [
-        "Engineered an agentic LLM-driven automation pipeline in Python using the GitHub API to auto-generate signal recording definition functions, reducing manual authoring time by 80%",
-        "Developed data recording infrastructure supporting over 10 ADAS feature teams, ensuring critical event data capture for safety-critical system validation",
-        "Gained hands-on exposure to real-world vehicle testing and validation, bridging software development with physical test environments",
-        "Collaborated cross-functionally with ADAS feature teams to identify recording requirements and translate them into automated, scalable software solutions",
+        "Building an end-to-end pipeline that turns a Jira ticket into a generated signal recording definition function and an opened GitHub pull request, using the Jira API and the GitHub Copilot API",
+        "Automating IBM Rhapsody model updates through its API so generated functions stay in sync with the system engineering model",
+        "Working within data recording infrastructure that supports 10+ ADAS feature teams' safety-critical event capture",
       ],
       technologies: [
         "Python",
-        "GitHub API",
-        "LLM Integration",
+        "Jira API",
+        "GitHub Copilot API",
+        "IBM Rhapsody",
         "Agentic AI",
         "ADAS",
-        "Code Generation",
       ],
       logo: null,
       isCurrent: true,
@@ -49,8 +49,8 @@ const Experience = () => {
         "Developed MPC/PID longitudinal control, a lateral Stanley controller, and a GNN-based sensor fusion pipeline",
         "Validated system performance through rigorous HIL and VIL testing on safety-critical software",
         "Led a team of 15 students in the final year of the EcoCAR EV Challenge",
-        "1st in Vehicle Technical Specifications; 2nd in MathWorks Model-Based Design, Automatic Intersection Navigation, and CAV Presentations; 3rd in Automatic Intersection Navigation Energy Consumption",
-        "Conducted research on Gaussian Processes, MPC, and reinforcement learning for autonomous systems",
+        "Year 4 finals (13 universities): 4th overall — 1st in CAV Vehicle Technical Specifications, 2nd in the competition CAV presentation, 2nd in Automatic Intersection Navigation, 3rd in AIN energy consumption, 2nd in Ride & Drive",
+        "Presented three research papers at IEEE ITEC (robust AIN optimization, hybrid DRL-MPC eco-driving, RL vs. MPC lane centering), with the CAV final presentation headed to ASME DRIVN in September 2026",
       ],
       technologies: [
         "MATLAB",
@@ -177,6 +177,7 @@ const Experience = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
+          <SectionIndex index={4} name="Experience" />
           <span className="section-label">Career Journey</span>
           <h2 className="section-title gradient-text">Work Experience</h2>
           <p className="section-description">

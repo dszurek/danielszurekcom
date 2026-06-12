@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
+import SectionIndex from "./SectionIndex";
 import ReactGA from 'react-ga4';
 import {
   FaEnvelope,
@@ -109,11 +110,11 @@ const Contact = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.6 }}
         >
+          <SectionIndex index={7} name="Contact" />
           <span className="section-label">Get In Touch</span>
           <h2 className="section-title gradient-text">Contact Me</h2>
           <p className="section-description">
-            Open to software engineering and data opportunities in automotive,
-            AI, and tech
+            Recruiters, researchers, and fellow engineers — my inbox is open
           </p>
         </motion.div>
 
@@ -127,11 +128,10 @@ const Contact = () => {
             <div className="info-card glass">
               <h3>Let's Connect</h3>
               <p>
-                I'm actively seeking software engineering and data opportunities
-                in autonomous vehicles, artificial intelligence, and tech. Open
-                to full-time roles, internships, and collaborative research
-                projects. Whether you're a recruiter, researcher, or fellow
-                engineer, I'd love to hear from you!
+                If you're working on ADAS, autonomy, or applied AI — or want to
+                talk about the work on this site — the form or a direct email
+                is the fastest way to reach me. I read everything that comes
+                through.
               </p>
 
               <div className="contact-details">
@@ -327,21 +327,6 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        <motion.footer
-          className="footer"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className="footer-content">
-            <p className="footer-text">
-              © {new Date().getFullYear()} Daniel Szurek. All rights reserved.
-            </p>
-            <div className="footer-links">
-              <a href="#hero">Back to Top</a>
-            </div>
-          </div>
-        </motion.footer>
       </div>
     </section>
   );
