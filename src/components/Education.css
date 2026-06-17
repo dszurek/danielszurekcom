@@ -322,6 +322,30 @@
   max-width: 75ch;
 }
 
+.publication-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-leather-light);
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.publication-link:hover {
+  color: var(--color-beige-light);
+  gap: 0.6rem;
+}
+
+.publication-link svg {
+  font-size: 0.6rem;
+}
+
 @media (max-width: 768px) {
   .publications-section {
     padding: 1.8rem;

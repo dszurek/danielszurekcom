@@ -2,8 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
 import SectionIndex from "./SectionIndex";
-import { FaAward, FaBook, FaFileAlt } from "react-icons/fa";
+import { FaAward, FaBook, FaFileAlt, FaExternalLinkAlt } from "react-icons/fa";
+import ReactGA from "react-ga4";
 import uaLogo from "../images/ua_logo.png";
+import ainPaper from "../other/ain_paper.pdf";
+import drlMpcPaper from "../other/DRL-mpc.pdf";
+import laneCenteringPaper from "../other/LCC_classic-v-rl.pdf";
 import "./Education.css";
 
 const Education = () => {
@@ -70,6 +74,7 @@ const Education = () => {
       status: "Presented",
       summary:
         "NSGA-II speed-profile optimization scored across Monte Carlo SPaT perturbations, trading energy, travel time, and comfort against robustness to signal-timing error.",
+      paper: ainPaper,
     },
     {
       title:
@@ -78,6 +83,7 @@ const Education = () => {
       status: "Presented",
       summary:
         "Hierarchical eco-driving control: a deep RL strategy layer over a constraint-enforcing MPC, pairing learned adaptability with formal safety guarantees.",
+      paper: drlMpcPaper,
     },
     {
       title: "Reinforcement Learning vs. MPC for Lane Centering",
@@ -85,6 +91,7 @@ const Education = () => {
       status: "Presented",
       summary:
         "Soft Actor-Critic trained against Simulink vehicle dynamics, compared head-to-head with an MPC baseline on tracking, smoothness, and computational cost.",
+      paper: laneCenteringPaper,
     },
     {
       title: "EcoCAR EV Challenge — CAV Final Presentation",
@@ -207,6 +214,23 @@ const Education = () => {
                   </div>
                   <h4 className="publication-title">{pub.title}</h4>
                   <p className="publication-summary">{pub.summary}</p>
+                  {pub.paper && (
+                    <a
+                      className="publication-link"
+                      href={pub.paper}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() =>
+                        ReactGA.event({
+                          category: "Publication",
+                          action: "Open",
+                          label: pub.title,
+                        })
+                      }
+                    >
+                      Read paper <FaExternalLinkAlt aria-hidden="true" />
+                    </a>
+                  )}
                 </motion.li>
               ))}
             </ul>
