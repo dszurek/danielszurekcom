@@ -210,26 +210,6 @@
   font-size: 0.62rem;
 }
 
-/* ---- Closing CTA ---- */
-
-.rd-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(var(--rgb-beige), 0.12);
-}
-
-.rd-footer-note {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  max-width: 42ch;
-}
-
 /* ---- Responsive ---- */
 
 @media (max-width: 900px) {
@@ -255,10 +235,5 @@
 
   .rd-overview .rd-metric-value {
     font-size: 1.6rem;
-  }
-
-  .rd-footer {
-    flex-direction: column;
-    align-items: flex-start;
   }
 }

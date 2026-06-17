@@ -2,7 +2,6 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import ReactGA from "react-ga4";
-import CtaLink from "./CtaLink";
 import { useCountUp } from "../hooks/useCountUp";
 import ainPaper from "../other/ain_paper.pdf";
 import drlMpcPaper from "../other/DRL-mpc.pdf";
@@ -178,20 +177,6 @@ const CaseStudyResearch = () => (
         </motion.article>
       ))}
     </motion.div>
-
-    <div className="rd-footer">
-      <p className="rd-footer-note">
-        Full manuscripts open in your browser. Want to talk through the methods
-        or results?
-      </p>
-      <CtaLink
-        href="#contact"
-        variant="primary"
-        gaLabel="Case study research - Get in touch"
-      >
-        Get in touch
-      </CtaLink>
-    </div>
   </article>
 );
 
