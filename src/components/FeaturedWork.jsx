@@ -1,7 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { useSectionInView } from "../hooks/useSectionInView";
-import SectionIndex from "./SectionIndex";
+import SectionHeader from "./SectionHeader";
 import CaseStudyEcoCar from "./CaseStudyEcoCar";
 import CaseStudyResearch from "./CaseStudyResearch";
 import ProjectGrid from "./Projects";
@@ -12,25 +10,17 @@ import "./FeaturedWork.css";
  * compact filterable grid of remaining projects.
  */
 const FeaturedWork = () => {
-  const [ref, inView] = useSectionInView();
-
   return (
     <section id="projects" className="featured-work">
       <div className="featured-work-container">
-        <motion.div
+        <SectionHeader
           className="featured-work-header"
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionIndex index={3} name="Featured Work" />
-          <span className="section-label">Engineering, in depth</span>
-          <h2 className="section-title gradient-text">Featured Work</h2>
-          <p className="section-description">
-            Two case studies, then the wider portfolio
-          </p>
-        </motion.div>
+          index={3}
+          name="Featured Work"
+          label="Engineering, in depth"
+          title="Featured Work"
+          description="Two case studies, then the wider portfolio"
+        />
 
         <CaseStudyEcoCar />
         <CaseStudyResearch />

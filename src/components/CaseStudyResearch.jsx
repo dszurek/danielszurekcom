@@ -7,6 +7,7 @@ import { useCountUp } from "../hooks/useCountUp";
 import ainPaper from "../other/ain_paper.pdf";
 import drlMpcPaper from "../other/DRL-mpc.pdf";
 import laneCenteringPaper from "../other/LCC_classic-v-rl.pdf";
+import "./CaseStudy.css"; // shared .cs-header / .cs-kicker / .cs-title / .cs-intro
 import "./ResearchDossier.css";
 
 /* Three IEEE ITEC papers, with the real titles, authorship, and numbers

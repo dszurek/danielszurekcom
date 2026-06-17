@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
-import SectionIndex from "./SectionIndex";
+import SectionHeader from "./SectionHeader";
 import { FaBriefcase, FaCalendar, FaMapMarkerAlt } from "react-icons/fa";
 import ecocarLogo from "../images/ecocar_logo.png";
 import ssabLogo from "../images/ssab_logo.png";
@@ -173,19 +173,14 @@ const Experience = () => {
   return (
     <section id="experience" className="experience" ref={ref}>
       <div className="experience-container">
-        <motion.div
+        <SectionHeader
           className="experience-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionIndex index={4} name="Experience" />
-          <span className="section-label">Career Journey</span>
-          <h2 className="section-title gradient-text">Work Experience</h2>
-          <p className="section-description">
-            My professional journey and key accomplishments
-          </p>
-        </motion.div>
+          index={4}
+          name="Experience"
+          label="Career Journey"
+          title="Work Experience"
+          description="My professional journey and key accomplishments"
+        />
 
         <motion.div
           className="experience-timeline"

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
-import SectionIndex from "./SectionIndex";
+import SectionHeader from "./SectionHeader";
 import ReactGA from 'react-ga4';
 import {
   FaEnvelope,
@@ -104,19 +104,14 @@ const Contact = () => {
   return (
     <section id="contact" className="contact" ref={ref}>
       <div className="contact-container">
-        <motion.div
+        <SectionHeader
           className="contact-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionIndex index={7} name="Contact" />
-          <span className="section-label">Get In Touch</span>
-          <h2 className="section-title gradient-text">Contact Me</h2>
-          <p className="section-description">
-            Recruiters, researchers, and fellow engineers — my inbox is open
-          </p>
-        </motion.div>
+          index={7}
+          name="Contact"
+          label="Get In Touch"
+          title="Contact Me"
+          description="Recruiters, researchers, and fellow engineers — my inbox is open"
+        />
 
         <div className="contact-content">
           <motion.div

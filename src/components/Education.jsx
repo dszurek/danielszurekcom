@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
-import SectionIndex from "./SectionIndex";
+import SectionHeader from "./SectionHeader";
 import { FaAward, FaBook, FaFileAlt, FaExternalLinkAlt } from "react-icons/fa";
 import ReactGA from "react-ga4";
 import uaLogo from "../images/ua_logo.png";
@@ -119,19 +119,14 @@ const Education = () => {
   return (
     <section id="education" className="education" ref={ref}>
       <div className="education-container">
-        <motion.div
+        <SectionHeader
           className="education-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionIndex index={5} name="Education" />
-          <span className="section-label">Academic Background</span>
-          <h2 className="section-title gradient-text">Education</h2>
-          <p className="section-description">
-            My academic journey and continuous learning path
-          </p>
-        </motion.div>
+          index={5}
+          name="Education"
+          label="Academic Background"
+          title="Education"
+          description="My academic journey and continuous learning path"
+        />
 
         <div className="education-content">
           {/* Degrees Section */}

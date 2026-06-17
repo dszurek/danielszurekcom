@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
-import SectionIndex from "./SectionIndex";
+import SectionHeader from "./SectionHeader";
 import { FaCarSide, FaBrain, FaCode, FaCloud } from "react-icons/fa";
 import "./Skills.css";
 
@@ -102,19 +102,14 @@ const Skills = () => {
   return (
     <section id="skills" className="skills" ref={ref}>
       <div className="skills-container">
-        <motion.div
+        <SectionHeader
           className="skills-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionIndex index={6} name="Skills" />
-          <span className="section-label">My Toolkit</span>
-          <h2 className="section-title gradient-text">Technical Skills</h2>
-          <p className="section-description">
-            Languages, frameworks, and tools I work with
-          </p>
-        </motion.div>
+          index={6}
+          name="Skills"
+          label="My Toolkit"
+          title="Technical Skills"
+          description="Languages, frameworks, and tools I work with"
+        />
 
         <motion.div
           className="skills-grid"
