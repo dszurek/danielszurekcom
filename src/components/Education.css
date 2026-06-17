@@ -48,8 +48,8 @@
   /* Darker framed background so transparent logos pop */
   background: linear-gradient(
     135deg,
-    rgba(10, 10, 10, 0.9),
-    rgba(45, 74, 62, 0.6)
+    rgba(26, 30, 34, 0.9),
+    rgba(var(--rgb-forest), 0.55)
   );
   display: flex;
   align-items: center;
@@ -180,67 +180,6 @@
   color: var(--color-leather-light);
 }
 
-/* Certifications */
-.certifications-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
-}
-
-.certification-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.2rem;
-  padding: 1.8rem;
-  border-radius: 20px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.cert-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: linear-gradient(
-    135deg,
-    var(--color-leather-brown),
-    var(--color-leather-light)
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-beige-light);
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-
-.cert-content {
-  flex: 1;
-}
-
-.cert-content h4 {
-  font-size: 1.1rem;
-  color: var(--color-beige-light);
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.cert-issuer {
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.5rem;
-}
-
-.cert-date {
-  display: inline-block;
-  padding: 0.25rem 0.8rem;
-  background: rgba(45, 74, 62, 0.3);
-  border-radius: 12px;
-  font-size: 0.8rem;
-  color: var(--color-forest-light);
-  font-weight: 500;
-}
-
 /* Courses */
 .courses-section {
   padding: 3rem;
@@ -309,15 +248,106 @@
     gap: 0.8rem;
   }
 
-  .certifications-grid {
-    grid-template-columns: 1fr;
-  }
-
   .courses-section {
     padding: 2rem;
   }
 
   .subsection-title {
     font-size: 1.5rem;
+  }
+}
+
+/* ===== Research & Publications ===== */
+.publications-section {
+  border-radius: 20px;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.publications-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  margin-top: 1.5rem;
+}
+
+.publication-item {
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--color-forest-light);
+}
+
+.publication-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-bottom: 0.45rem;
+}
+
+.publication-venue {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-leather-light);
+  border: 1px solid rgba(var(--rgb-leather-light), 0.4);
+  border-radius: 4px;
+  padding: 0.18rem 0.5rem;
+}
+
+.publication-status {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.publication-status.upcoming {
+  color: var(--color-forest-light);
+}
+
+.publication-title {
+  font-size: 1.05rem;
+  line-height: 1.45;
+  color: var(--color-beige-light);
+  margin-bottom: 0.4rem;
+}
+
+.publication-summary {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 75ch;
+}
+
+.publication-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-leather-light);
+  text-decoration: none;
+  transition: color 0.25s ease, gap 0.25s ease;
+}
+
+.publication-link:hover {
+  color: var(--color-beige-light);
+  gap: 0.6rem;
+}
+
+.publication-link svg {
+  font-size: 0.6rem;
+}
+
+@media (max-width: 768px) {
+  .publications-section {
+    padding: 1.8rem;
   }
 }

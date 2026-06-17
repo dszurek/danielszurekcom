@@ -1,0 +1,48 @@
+.cta-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 1.05rem 2.3rem;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: box-shadow 0.3s ease, background 0.3s ease,
+    border-color 0.3s ease;
+  will-change: transform;
+}
+
+.cta-link.primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-leather-brown),
+    var(--color-leather-light)
+  );
+  color: var(--color-beige-light);
+  box-shadow: 0 4px 20px rgba(var(--rgb-leather), 0.35);
+}
+
+.cta-link.primary:hover {
+  box-shadow: 0 8px 32px rgba(var(--rgb-leather), 0.5);
+}
+
+.cta-link.secondary {
+  background: transparent;
+  color: var(--color-beige-light);
+  border-color: var(--color-beige);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.cta-link.secondary:hover {
+  background: rgba(var(--rgb-beige), 0.1);
+  border-color: var(--color-beige-light);
+}
+
+/* Compact variant for tight homes (navbar, footer) */
+.cta-link.compact {
+  padding: 0.55rem 1.3rem;
+  font-size: 0.85rem;
+}

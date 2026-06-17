@@ -1,0 +1,10 @@
+.section-index {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  color: rgba(var(--rgb-beige), 0.45);
+  margin-bottom: 0.6rem;
+  white-space: pre;
+}

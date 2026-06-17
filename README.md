@@ -2,67 +2,88 @@
 
 [Website (live)](https://www.danielszurek.com) • [LinkedIn](https://www.linkedin.com/in/danielszurek) • [GitHub](https://github.com/dszurek)
 
----
+ADAS software engineer portfolio — autonomous vehicle systems, applied machine
+learning, and the projects behind them. Built with React + Vite and styled as an
+automotive instrument cluster: detection-frame hero, PRND gear navigation,
+gauge-dial stats, and lane-marking section dividers.
 
-## About
+## Design language
 
-Hello — I’m Daniel, an MS Computer Science student specializing in autonomous vehicle systems, artificial intelligence, and software engineering. This portfolio showcases some of my experience!
+- **Theme**: lifted graphite/slate base with leather + forest-green accents
+  (CSS variables in `src/index.css`)
+- **Type**: Playfair Display (display), Inter (body), IBM Plex Mono (HUD elements
+  — gear readout, classification chip, `SEC NN /` section readouts)
+- **Automotive motifs**: perception-style detection frame around the hero name,
+  PRND gear indicator tied to scroll position, speedometer-dial stats, dashed
+  lane-line dividers, and a WebGL particle "sensor field" background
 
----
+## Codebase map
 
-## Features & Design
-
-- Modern, responsive UI with glassmorphism and some of my favorite color palettes
-- Dynamic background particles + parallax motion with Framer Motion
-- Accessible and mobile-friendly layout
-- Netlify Forms integrated for secure contact form submissions
-
-## Local Setup (Quick Start)
-
-If you'd like to run this portfolio site locally or modify it for your own needs, follow these steps:
-
-Clone the repository and run the dev server locally:
-
-```powershell
-# clone and navigate
-git clone https://github.com/dszurek/dszurekportfolio.git
-cd dszurekportfolio
-
-# install dependencies
-npm install
-
-# run dev server
-npm run dev
+```
+index.html                     Entry — fonts, SEO/OG metadata, Netlify form stub
+src/
+  main.jsx                     React root
+  App.jsx                      Section layout, GA init, MotionConfig
+  index.css                    Design tokens (colors, fonts) + global styles
+  App.css                      Shared utilities: glass, speed-stripe, gradient text
+  hooks/
+    useSectionInView.js        Shared IntersectionObserver entrance trigger
+    useActiveSection.js        Scroll-spy for navbar links + gear indicator
+    useCountUp.js              rAF count-up for stats/metrics (reduced-motion aware)
+    useStepProgress.js         Active-step tracker for the EcoCAR case study
+  data/
+    projects.jsx               Project catalogue + categories (content only)
+  components/
+    Navbar.jsx/.css            Fixed nav: scroll-spy links, gear readout, progress stripe
+    Hero.jsx/.css              Detection-frame identity, radar rings, ignition choreography
+    CredibilityStrip.jsx/.css  "Experience with" wordmark row under the hero
+    About.jsx/.css             Intro, interests, gauge-dial stats
+    FeaturedWork.jsx/.css      #projects section shell (case studies + grid)
+    CaseStudyEcoCar.jsx        Sticky HUD signal-flow case study (uses CaseStudy.css)
+    CaseStudyResearch.jsx      Research dossier — three IEEE ITEC papers (ResearchDossier.css)
+    CaseStudy.css              Shared case-study layout (header, sticky panel, steps)
+    Projects.jsx/.css          Filterable project grid (data from data/projects.jsx)
+    ProjectModal.jsx           Project detail dialog (Escape + scroll-lock)
+    Experience.jsx/.css        Timeline with role progressions
+    Education.jsx/.css         Degrees, publications, coursework
+    Skills.jsx/.css            Skill groups, ADAS toolkit first
+    Contact.jsx/.css           Netlify form + contact details
+    Footer.jsx/.css            Multi-column site footer
+    SectionHeader.jsx          Shared section heading (index + label + title + blurb)
+    SectionIndex.jsx/.css      HUD "SEC NN /" scramble-in readout
+    CtaLink.jsx/.css           Magnetic primary/secondary call-to-action link
+    BodyLine.jsx/.css          Lane-marking section divider
+    AnimatedBackground.jsx/.css  WebGL (ogl) particle field
+  images/                      Project/logo assets (bundled by Vite)
+  other/                       Résumé + IEEE ITEC paper PDFs (bundled, open in browser)
+public/                        Static assets served as-is (favicon, OG image)
 ```
 
-Open http://localhost:3000 in your browser to preview the site.
+## Performance notes
 
----
+- Scroll effects run on Framer Motion **motion values** (`useScroll`) — no React
+  re-renders per scroll frame
+- Scroll-spy and entrance animations use IntersectionObservers
+- The WebGL background pauses when the tab is hidden and renders a single static
+  frame under `prefers-reduced-motion`; device pixel ratio capped at 2
+- Below-the-fold images are lazy-loaded; Google Fonts trimmed to used weights
+- GA4 runs in test mode outside production builds
+
+## Local setup
+
+```bash
+git clone https://github.com/dszurek/dszurekportfolio.git
+cd dszurekportfolio
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build to dist/
+```
 
 ## Deployment
 
-I deploy this site using Netlify. The contact form uses Netlify Forms so messages are processed server-side and routed to the configured email.
-
-To deploy your own copy:
-
-- Connect the repo to Netlify and enable continuous deploys
-- Configure site build command `npm run build` and publish folder `dist`
-- Configure Email notifications in the Forms section of Netlify
-
----
-
-## Accessibility & Security Notes
-
-- This portfolio is static and safe to host as a public repo (no API keys or secrets in the code).
-- The contact form is integrated with Netlify Forms and uses a honeypot to reduce spam.
-
----
-
-## Contributing
-
-Thanks for checking out my portfolio! If you'd like to suggest fixes or improvements, feel free to open an issue or PR.
-
----
+Deployed on Netlify: build command `npm run build`, publish folder `dist`.
+The contact form uses Netlify Forms (honeypot spam protection); configure email
+notifications in the Netlify Forms dashboard.
 
 ## Contact
 

@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
+import { useSectionInView } from "../hooks/useSectionInView";
+import SectionHeader from "./SectionHeader";
 import ReactGA from 'react-ga4';
 import {
   FaEnvelope,
   FaGithub,
   FaLinkedin,
-  FaTwitter,
+  FaMapMarkerAlt,
   FaPaperPlane,
+  FaPhone,
 } from "react-icons/fa";
 import "./Contact.css";
 
 const Contact = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
+  const [ref, inView] = useSectionInView();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -41,12 +40,12 @@ const Contact = () => {
     try {
       // Encode form data for Netlify
       const formElement = e.target;
-      const formData = new FormData(formElement);
+      const payload = new FormData(formElement);
 
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
+        body: new URLSearchParams(payload).toString(),
       });
 
       if (response.ok) {
@@ -105,19 +104,14 @@ const Contact = () => {
   return (
     <section id="contact" className="contact" ref={ref}>
       <div className="contact-container">
-        <motion.div
+        <SectionHeader
           className="contact-header"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="section-label">Get In Touch</span>
-          <h2 className="section-title gradient-text">Contact Me</h2>
-          <p className="section-description">
-            Open to software engineering and data opportunities in automotive,
-            AI, and tech
-          </p>
-        </motion.div>
+          index={7}
+          name="Contact"
+          label="Get In Touch"
+          title="Contact Me"
+          description="Recruiters, researchers, and fellow engineers — my inbox is open"
+        />
 
         <div className="contact-content">
           <motion.div
@@ -129,11 +123,10 @@ const Contact = () => {
             <div className="info-card glass">
               <h3>Let's Connect</h3>
               <p>
-                I'm actively seeking software engineering and data opportunities
-                in autonomous vehicles, artificial intelligence, and tech. Open
-                to full-time roles, internships, and collaborative research
-                projects. Whether you're a recruiter, researcher, or fellow
-                engineer, I'd love to hear from you!
+                If you're working on ADAS, autonomy, or applied AI — or want to
+                talk about the work on this site — the form or a direct email
+                is the fastest way to reach me. I read everything that comes
+                through.
               </p>
 
               <div className="contact-details">
@@ -141,7 +134,7 @@ const Contact = () => {
                   <FaEnvelope className="detail-icon" />
                   <div>
                     <h4>Email</h4>
-                    <a 
+                    <a
                       href="mailto:djszurek@crimson.ua.edu"
                       onClick={() => ReactGA.event({
                         category: 'Contact',
@@ -151,6 +144,29 @@ const Contact = () => {
                     >
                       djszurek@crimson.ua.edu
                     </a>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaPhone className="detail-icon" />
+                  <div>
+                    <h4>Phone</h4>
+                    <a
+                      href="tel:+12052136132"
+                      onClick={() => ReactGA.event({
+                        category: 'Contact',
+                        action: 'Click',
+                        label: 'Phone Link',
+                      })}
+                    >
+                      +1 (205) 213-6132
+                    </a>
+                  </div>
+                </div>
+                <div className="detail-item">
+                  <FaMapMarkerAlt className="detail-icon" />
+                  <div>
+                    <h4>Location</h4>
+                    <span>Tuscaloosa, AL, USA</span>
                   </div>
                 </div>
               </div>
@@ -297,11 +313,6 @@ const Contact = () => {
                   className="error-message"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  style={{
-                    color: "#ff6b6b",
-                    marginTop: "1rem",
-                    textAlign: "center",
-                  }}
                 >
                   ✗ Failed to send message. Please try again or email me
                   directly.
@@ -311,21 +322,6 @@ const Contact = () => {
           </motion.div>
         </div>
 
-        <motion.footer
-          className="footer"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-        >
-          <div className="footer-content">
-            <p className="footer-text">
-              © 2025 Daniel Szurek. All rights reserved.
-            </p>
-            <div className="footer-links">
-              <a href="#hero">Back to Top</a>
-            </div>
-          </div>
-        </motion.footer>
       </div>
     </section>
   );
