@@ -7,6 +7,7 @@ import ecocarLogo from "../images/ecocar_logo.png";
 import ssabLogo from "../images/ssab_logo.png";
 import bgLogo from "../images/bg_logo.png";
 import "./Experience.css";
+import gmLogo from "../images/gm_logo.png";
 
 const Experience = () => {
   const [ref, inView] = useSectionInView();
@@ -19,10 +20,11 @@ const Experience = () => {
       location: "Milford, MI",
       period: "May 2026 - August 2026",
       summary:
-        "On GM's ADAS data recording team — the infrastructure that captures critical event data for more than ten ADAS feature teams — I'm building an end-to-end automation pipeline that takes a Jira ticket all the way to a reviewed GitHub pull request, with the goal of cutting manual signal-recording-function authoring time by roughly 80%.",
+        "On GM's ADAS data recording team — the infrastructure that captures critical event data for ADAS feature teams — I'm building an end-to-end automation pipeline that takes a Jira ticket all the way to a reviewed GitHub pull request, with the goal of cutting manual signal-recording-function authoring time by roughly 80%.",
       achievements: [
         "Building an end-to-end pipeline that turns a Jira ticket into a generated signal recording definition function and an opened GitHub pull request, using the Jira API and the GitHub Copilot API",
         "Automating IBM Rhapsody model updates through its API so generated functions stay in sync with the system engineering model",
+        "Supporting on-vehicle data collection at the Milford Proving Grounds, debugging recording configurations against live test runs to match feature-team signal requirements",
         "Working within data recording infrastructure that supports 10+ ADAS feature teams' safety-critical event capture",
       ],
       technologies: [
@@ -33,7 +35,7 @@ const Experience = () => {
         "Agentic AI",
         "ADAS",
       ],
-      logo: null,
+      logo: gmLogo,
       isCurrent: true,
     },
     {
@@ -46,10 +48,10 @@ const Experience = () => {
         "I lead a 15-student team building the full self-driving stack on a pre-production Cadillac Lyriq — Lane Centering, Cooperative Adaptive Cruise Control, V2X connectivity, and multi-sensor fusion — pairing MPC/PID longitudinal control with a Stanley lateral controller and a GNN fusion pipeline, then proving it all out through rigorous hardware- and vehicle-in-the-loop testing.",
       achievements: [
         "Architected the autonomous navigation stack for a pre-production Cadillac Lyriq integrating Lane Centering, CACC, and V2X",
-        "Developed MPC/PID longitudinal control, a lateral Stanley controller, and a GNN-based sensor fusion pipeline",
+        "Developed MPC/PID longitudinal control, a lateral Stanley controller, and a GNN-based sensor fusion pipeline, cutting lateral tracking error to under 30 cm in HIL testing",
         "Validated system performance through rigorous HIL and VIL testing on safety-critical software",
         "Led a team of 15 students in the final year of the EcoCAR EV Challenge",
-        "Year 4 finals (13 universities): 4th overall — 1st in CAV Vehicle Technical Specifications, 2nd in the competition CAV presentation, 2nd in Automatic Intersection Navigation, 3rd in AIN energy consumption, 2nd in Ride & Drive",
+        "Year 4 finals (13 universities): 4th overall — 1st in CAV Vehicle Technical Specifications, 2nd in MathWorks Model-Based Design, 2nd in the competition CAV presentation, 2nd in Automatic Intersection Navigation, 3rd in AIN energy consumption, 2nd in Ride & Drive",
         "Presented three research papers at IEEE ITEC (robust AIN optimization, hybrid DRL-MPC eco-driving, RL vs. MPC lane centering), with the CAV final presentation headed to ASME DRIVN in September 2026",
       ],
       technologies: [

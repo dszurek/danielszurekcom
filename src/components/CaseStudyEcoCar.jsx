@@ -58,7 +58,7 @@ const steps = [
   {
     index: "03 / CONTROL",
     title: "Two controllers, one smooth ride",
-    body: "MPC and PID handle longitudinal control while a Stanley controller handles lateral tracking, both commanding the Lyriq's stock steering and propulsion interfaces for production-grade ride quality.",
+    body: "MPC and PID handle longitudinal control while a Stanley controller handles lateral tracking — tuned down to under 30 cm of lateral error in HIL — both commanding the Lyriq's stock steering and propulsion interfaces for production-grade ride quality.",
   },
   {
     index: "04 / VALIDATION",
@@ -76,6 +76,7 @@ const results = [
   { place: "P4", event: "Overall standing" },
   { place: "P1", event: "CAV VTS evaluation" },
   { place: "P2", event: "Competition CAV presentation" },
+  { place: "P2", event: "MathWorks Model-Based Design" },
   { place: "P2", event: "Automatic Intersection Navigation" },
   { place: "P3", event: "AIN energy consumption" },
   { place: "P2", event: "Ride & Drive" },

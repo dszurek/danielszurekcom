@@ -8,7 +8,6 @@ import FeaturedWork from "./components/FeaturedWork";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
-import OffTheClock from "./components/OffTheClock";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import BodyLine from "./components/BodyLine";
@@ -37,7 +36,6 @@ function App() {
           <Education />
           <BodyLine flip />
           <Skills />
-          <OffTheClock />
           <BodyLine />
           <Contact />
         </main>

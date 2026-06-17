@@ -132,26 +132,19 @@ const About = () => {
             <div className="intro-text">
               <h3>I'm Daniel Szurek</h3>
               <p>
-                I build software that helps vehicles drive themselves. I'm
-                completing the Accelerated Master's Program in Computer Science
-                at the University of Alabama while leading the Connected and
-                Automated Vehicle (CAV) team for the university's EcoCAR EV
-                Challenge program.
-              </p>
-              <p>
-                This summer I'm at{" "}
-                <span className="highlight-text">General Motors</span> in
-                Milford, MI as an{" "}
-                <span className="highlight-text">
-                  ADAS Software Engineer Intern
-                </span>
-                , automating the path from Jira ticket to reviewed pull request
-                for the data recording team. On EcoCAR, I architected the
-                autonomous navigation stack for a pre-production Cadillac Lyriq
-                — Lane Centering, Cooperative Adaptive Cruise Control, and V2X
-                connectivity built on stock onboard systems, with MPC/PID
-                longitudinal control, a Stanley lateral controller, and a GNN
-                sensor fusion pipeline.
+                I'm a Computer Science master's student at The University of Alabama focused on ADAS and autonomous vehicle development.
+
+
+
+                I'm currently an ADAS Software Engineer Intern at General Motors, where I build automation tooling for ADAS feature teams and support on-vehicle data collection and validation at the Milford Proving Grounds. As the Connected and Automated Vehicle (CAV) lead on UA's EcoCAR team, I lead development and integration of the full autonomous driving stack on a pre-production Cadillac LYRIQ and design and tune the underlying control and sensor fusion algorithms in MATLAB/Simulink.
+
+
+
+                My hands-on work spans the ADAS pipeline: longitudinal and lateral controllers (MPC/PID, Stanley), Global Nearest Neighbor sensor fusion, and Hardware-in-the-Loop and Vehicle-in-the-Loop validation. I'm comfortable across Python, C++, MATLAB, and JavaScript, and my project portfolio includes applied AI work with Convolutional Neural Networks, Model Predictive Control, and LLM integration. I also bring a strong data science and analytics foundation from prior internship experience.
+
+
+
+                I'm driven by the challenge of making autonomous systems safe and reliable in the real world, and I'm always glad to connect with others working in ADAS, autonomy, and automotive software.
               </p>
 
               <CtaLink
