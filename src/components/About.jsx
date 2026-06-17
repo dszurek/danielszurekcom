@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useSectionInView } from "../hooks/useSectionInView";
-import { FaCarSide, FaBrain, FaSatelliteDish, FaMicrochip, FaDownload } from "react-icons/fa";
+import { FaCarSide, FaBrain, FaSatelliteDish, FaMicrochip, FaExternalLinkAlt } from "react-icons/fa";
 import headshotImg from "../images/headshot.jpg";
 import resumePdf from "../other/daniel_szurek_resume.pdf";
 import ReactGA from 'react-ga4';
@@ -130,38 +130,59 @@ const About = () => {
             </div>
 
             <div className="intro-text">
-              <h3>I'm Daniel Szurek</h3>
-              <p>
-                I'm a Computer Science master's student at The University of Alabama focused on ADAS and autonomous vehicle development.
+              <h3>Daniel Szurek</h3>
+              <p className="intro-lead">
+                I'm a Computer Science master's student at The University of Alabama,
+                set on making{" "}
+                <span className="highlight-text">ADAS and autonomous vehicles</span>{" "}
+                safe and reliable in the real world.
+              </p>
 
+              <ul className="intro-now">
+                <li>
+                  <span className="intro-now-role">
+                    ADAS Software Engineer Intern · General Motors
+                  </span>
+                  <span className="intro-now-detail">
+                    Building automation tooling for ADAS feature teams and
+                    supporting on-vehicle data collection and validation at the
+                    Milford Proving Grounds.
+                  </span>
+                </li>
+                <li>
+                  <span className="intro-now-role">
+                    Connected &amp; Automated Vehicle Lead · UA EcoCAR
+                  </span>
+                  <span className="intro-now-detail">
+                    Leading the full self-driving stack on a pre-production
+                    Cadillac LYRIQ, with control and sensor-fusion algorithms
+                    designed and tuned in MATLAB/Simulink.
+                  </span>
+                </li>
+              </ul>
 
-
-                I'm currently an ADAS Software Engineer Intern at General Motors, where I build automation tooling for ADAS feature teams and support on-vehicle data collection and validation at the Milford Proving Grounds. As the Connected and Automated Vehicle (CAV) lead on UA's EcoCAR team, I lead development and integration of the full autonomous driving stack on a pre-production Cadillac LYRIQ and design and tune the underlying control and sensor fusion algorithms in MATLAB/Simulink.
-
-
-
-                My hands-on work spans the ADAS pipeline: longitudinal and lateral controllers (MPC/PID, Stanley), Global Nearest Neighbor sensor fusion, and Hardware-in-the-Loop and Vehicle-in-the-Loop validation. I'm comfortable across Python, C++, MATLAB, and JavaScript, and my project portfolio includes applied AI work with Convolutional Neural Networks, Model Predictive Control, and LLM integration. I also bring a strong data science and analytics foundation from prior internship experience.
-
-
-
-                I'm driven by the challenge of making autonomous systems safe and reliable in the real world, and I'm always glad to connect with others working in ADAS, autonomy, and automotive software.
+              <p className="intro-close">
+                My hands-on work spans the ADAS pipeline backed
+                by applied AI (CNNs, MPC, LLM integration) and a data-science
+                foundation from earlier internships.
               </p>
 
               <CtaLink
                 href={resumePdf}
                 variant="secondary"
                 className="compact resume-cta"
-                download="Daniel_Szurek_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() =>
                   ReactGA.event({
                     category: "Resume",
-                    action: "Download",
-                    label: "Resume Download",
+                    action: "View",
+                    label: "Resume View",
                   })
                 }
               >
-                <FaDownload aria-hidden="true" />
-                Download resume
+                <FaExternalLinkAlt aria-hidden="true" />
+                View résumé
               </CtaLink>
             </div>
           </motion.div>

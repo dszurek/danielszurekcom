@@ -114,9 +114,55 @@
   margin-bottom: 1.2rem;
 }
 
-.intro-text p .highlight-text {
+.intro-text .highlight-text {
   color: var(--color-beige-light);
   font-weight: 600;
+}
+
+/* Lead line: slightly larger, sets the hook */
+.intro-lead {
+  font-size: 1.18rem;
+  line-height: 1.65;
+  color: var(--color-beige-light);
+  margin-bottom: 1.6rem;
+}
+
+/* "Currently" entries — structured rows instead of a wall of prose */
+.intro-now {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  margin-bottom: 1.6rem;
+}
+
+.intro-now li {
+  position: relative;
+  padding-left: 1.1rem;
+  border-left: 2px solid rgba(var(--rgb-leather-light), 0.55);
+}
+
+.intro-now-role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-beige-light);
+  margin-bottom: 0.35rem;
+}
+
+.intro-now-detail {
+  display: block;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--color-text-muted);
+}
+
+.intro-close {
+  font-size: 0.98rem;
+  line-height: 1.75;
 }
 
 .resume-cta {

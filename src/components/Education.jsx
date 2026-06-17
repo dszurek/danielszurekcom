@@ -69,28 +69,29 @@ const Education = () => {
   const publications = [
     {
       title:
-        "Robust Multi-Objective Genetic Algorithm (R-MOGA) for Automatic Intersection Navigation under SPaT Uncertainty",
+        "Gaussian Process–Based Model Predictive Control for Robust Autonomous Intersection Navigation Under Degraded V2I Communication",
       venue: "IEEE ITEC",
-      status: "Presented",
+      status: "First author · Presented",
       summary:
-        "NSGA-II speed-profile optimization scored across Monte Carlo SPaT perturbations, trading energy, travel time, and comfort against robustness to signal-timing error.",
+        "A five-feature Gaussian Process predicts signal timing through V2I outages and emits a confidence signal that tightens a nonlinear MPC — zero red-light violations across 35 configurations, up to 33.1% packet loss.",
       paper: ainPaper,
     },
     {
       title:
-        "Hybrid DRL-MPC Frameworks for Safe and Adaptive Eco-Driving Control",
+        "Adaptive MPC Weight Tuning via Reinforcement Learning for Eco-Driving: Framework and Oracle Gap Analysis",
       venue: "IEEE ITEC",
-      status: "Presented",
+      status: "Co-author · Presented",
       summary:
-        "Hierarchical eco-driving control: a deep RL strategy layer over a constraint-enforcing MPC, pairing learned adaptability with formal safety guarantees.",
+        "A Soft Actor-Critic agent tunes MPC cost weights as residual adjustments around a tuned baseline, benchmarked against an oracle grid search — +1.4% energy over fixed weights on an unseen drive cycle.",
       paper: drlMpcPaper,
     },
     {
-      title: "Reinforcement Learning vs. MPC for Lane Centering",
+      title:
+        "Lane Centering Under Camera Failures: Classical Control vs. Reinforcement Learning for ADAS",
       venue: "IEEE ITEC",
-      status: "Presented",
+      status: "Co-author · Presented",
       summary:
-        "Soft Actor-Critic trained against Simulink vehicle dynamics, compared head-to-head with an MPC baseline on tracking, smoothness, and computational cost.",
+        "A Kalman-filter + nested-PID baseline versus a SAC-LSTM agent on a shared Cadillac LYRIQ plant under a six-state Markov camera-failure model — sub-2 cm RMS lateral error at the classical baseline.",
       paper: laneCenteringPaper,
     },
     {

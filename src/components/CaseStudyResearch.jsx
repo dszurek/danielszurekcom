@@ -1,208 +1,197 @@
-import React, { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-} from "framer-motion";
-import { useStepProgress } from "../hooks/useStepProgress";
+import React from "react";
+import { motion } from "framer-motion";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import ReactGA from "react-ga4";
 import CtaLink from "./CtaLink";
-import "./CaseStudy.css";
+import { useCountUp } from "../hooks/useCountUp";
+import ainPaper from "../other/ain_paper.pdf";
+import drlMpcPaper from "../other/DRL-mpc.pdf";
+import laneCenteringPaper from "../other/LCC_classic-v-rl.pdf";
+import "./ResearchDossier.css";
 
-/* Paper markers on the Pareto chart and the learning ↔ model-based spectrum.
-   `step` is the cs-step index that highlights the marker. */
+/* Three IEEE ITEC papers, with the real titles, authorship, and numbers
+   pulled straight from the manuscripts in src/other. */
 const papers = [
   {
-    id: "rmoga",
-    step: 1,
-    chart: { cx: 78, cy: 78, labelX: 88, labelY: 70 },
-    chartLabel: "R-MOGA",
-    spectrum: 68,
+    id: "gp-mpc",
+    number: "01",
+    venue: "IEEE ITEC",
+    role: "First author",
+    lead: true,
+    title:
+      "Gaussian Process–Based Model Predictive Control for Robust Autonomous Intersection Navigation Under Degraded V2I Communication",
+    problem:
+      "Intersection eco-driving leans on V2I signal timing, but packet loss of 10–30% is common beyond 100 m and multi-second blackouts hit during infrastructure handoffs — most controllers simply assume the feed is reliable.",
+    approach:
+      "A five-feature Automatic Relevance Determination Gaussian Process predicts time-to-phase-change through outages and emits a confidence signal. That signal tightens a nonlinear MPC's intersection-aware constraints and drives a state machine with phase filtering and committed-stop latching — one uncertainty-aware pipeline from V2I to actuator.",
+    metrics: [
+      { value: 0, label: "Red-light violations across 35 configurations" },
+      { value: 33.1, suffix: "%", decimals: 1, label: "Packet loss tolerated with zero violations" },
+      { value: 13.7, suffix: "%", decimals: 1, label: "Comfort degradation, ideal → severe noise" },
+      { value: 38.4, suffix: "%", decimals: 1, label: "Energy reduction from the GLOSA advisory" },
+    ],
+    paper: ainPaper,
   },
   {
-    id: "drlmpc",
-    step: 2,
-    chart: { cx: 158, cy: 138, labelX: 168, labelY: 130 },
-    chartLabel: "DRL-MPC",
-    spectrum: 45,
+    id: "rl-mpc",
+    number: "02",
+    venue: "IEEE ITEC",
+    role: "Co-author · 2nd",
+    title:
+      "Adaptive MPC Weight Tuning via Reinforcement Learning for Eco-Driving: Framework and Oracle Gap Analysis",
+    problem:
+      "MPC cost weights tuned for highway cruising fall short in stop-and-go traffic — no single fixed weighting wins across regimes, yet unconstrained learning can destabilize a safety-critical controller.",
+    approach:
+      "A Soft Actor-Critic agent outputs residual weight adjustments around a hand-tuned baseline, so that baseline stays a guaranteed performance floor. An oracle grid search over EPA drive cycles quantifies the achievable ceiling, framing the learning problem honestly against both bounds.",
+    metrics: [
+      { value: 4.3, suffix: "%", decimals: 1, label: "Oracle energy headroom over fixed weights" },
+      { value: 1.4, prefix: "+", suffix: "%", decimals: 1, label: "Energy gain vs. fixed on an unseen cycle" },
+      { value: 3, label: "EPA drive cycles evaluated" },
+      { value: 0, label: "Collisions across every run" },
+    ],
+    paper: drlMpcPaper,
   },
   {
-    id: "sacmpc",
-    step: 3,
-    chart: { cx: 240, cy: 180, labelX: 188, labelY: 196 },
-    chartLabel: "SAC vs MPC",
-    spectrum: 20,
+    id: "lane-centering",
+    number: "03",
+    venue: "IEEE ITEC",
+    role: "Co-author · 3rd",
+    title:
+      "Lane Centering Under Camera Failures: Classical Control vs. Reinforcement Learning for ADAS",
+    problem:
+      "Production lane centering rides on a single forward camera — vulnerable to occlusion, weather, and hardware faults. How do classical and learned lateral controllers really compare once that camera degrades?",
+    approach:
+      "A Kalman-filter + nested-PID baseline goes head-to-head with a SAC-LSTM agent on a shared Cadillac LYRIQ Simulink plant, both stressed by a six-state Markov camera-failure model — a reproducible, shared-plant framework for the performance–robustness tradeoff.",
+    metrics: [
+      { value: 2, prefix: "<", suffix: " cm", label: "RMS lateral error, nominal (classical baseline)" },
+      { value: 6, label: "Markov camera-failure states (F0–F5)" },
+      { value: 5, label: "Road scenarios, straight to sharp curve" },
+      { value: 13, label: "RL training runs characterized" },
+    ],
+    paper: laneCenteringPaper,
   },
 ];
 
-const steps = [
-  {
-    index: "00 / QUESTION",
-    title: "One research question, three papers",
-    body: "How do you combine learning-based methods with model-based control so autonomous vehicles are both adaptive and provably safe? My EcoCAR research attacks that question from three angles — robust optimization, hybrid control, and head-to-head comparison — all three presented at IEEE ITEC.",
-  },
-  {
-    index: "01 / ROBUST OPTIMIZATION",
-    title: "R-MOGA: eco-driving through uncertain intersections",
-    body: "Intersection navigation traditionally trusts deterministic signal timing; real adaptive signals break that assumption. R-MOGA evolves vehicle speed profiles with NSGA-II, scoring every candidate across a Monte Carlo suite of perturbed SPaT timings — so the resulting Pareto front trades nominal energy, travel time, and comfort against robustness to timing error.",
-  },
-  {
-    index: "02 / HYBRID CONTROL",
-    title: "A DRL strategy layer over safety-critical MPC",
-    body: "A hierarchical eco-driving controller: a deep reinforcement learning agent learns long-horizon strategy in stochastic mixed traffic, and hands strategic targets to a low-level MPC that computes actuator commands while rigorously enforcing vehicle dynamics, speed limits, and collision-avoidance constraints. Learning adapts; the MPC guarantees.",
-  },
-  {
-    index: "03 / HEAD-TO-HEAD",
-    title: "SAC vs. MPC for lane centering",
-    body: "Soft Actor-Critic, trained with the MATLAB Reinforcement Learning Toolbox against Simulink vehicle dynamics, compared directly with an MPC baseline across curvatures and speeds: comparable tracking accuracy with distinct trade-offs in control smoothness, computational cost, and constraint interpretability — practical guidance for choosing a controller.",
-  },
-  {
-    index: "04 / DISSEMINATION",
-    title: "On the record",
-    body: "All three papers were presented at the IEEE Transportation Electrification Conference, and the team's CAV final presentation heads to the ASME DRIVN conference in September 2026. Full texts available on request.",
-  },
+const overview = [
+  { value: 3, label: "Papers" },
+  { value: 1, label: "First author" },
+  { value: 35, suffix: "+", label: "Test configurations" },
 ];
 
-const milestones = [
-  { place: "×3", event: "Papers presented · IEEE ITEC" },
-  { place: "SEP 26", event: "ASME DRIVN · CAV final presentation" },
-];
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
 
-const CaseStudyResearch = () => {
-  const [containerRef, activeStep] = useStepProgress();
-  const reduceMotion = useReducedMotion();
-  const sectionRef = useRef(null);
-
-  // The Pareto front draws itself as the case study scrolls through view
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.85", "end 0.7"],
-  });
-  const drawn = useTransform(scrollYProgress, [0, 0.65], [0, 1]);
-
+const Metric = ({ value, prefix = "", suffix = "", decimals = 0, label }) => {
+  const [ref, display] = useCountUp(value, { decimals });
   return (
-    <article id="work-research" className="case-study-block" ref={sectionRef}>
-      <header className="cs-header">
-        <span className="cs-kicker">Case Study 02 — Controls Research</span>
-        <h3 className="cs-title">Learning meets model-based control</h3>
-        <p className="cs-intro">
-          A research program on safe, efficient autonomy — published, presented,
-          and pointed at real vehicles.
-        </p>
-      </header>
-
-      <div className="case-study" ref={containerRef}>
-        <div className="cs-visual-col" aria-hidden="true">
-          <div className="cs-visual">
-          <svg
-            className="cs-chart"
-            viewBox="0 0 320 240"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Axes */}
-            <line className="axis" x1="42" y1="18" x2="42" y2="208" />
-            <line className="axis" x1="42" y1="208" x2="304" y2="208" />
-            <text className="axis-label" x="50" y="30">
-              ENERGY
-            </text>
-            <text className="axis-label" x="226" y="226">
-              TRAVEL TIME
-            </text>
-
-            {/* Pareto front, drawn by scroll progress */}
-            <motion.path
-              className="pareto-path"
-              d="M 60 50 C 92 110, 140 158, 212 178 S 286 196, 296 198"
-              style={{ pathLength: reduceMotion ? 1 : drawn }}
-            />
-
-            {papers.map((paper) => (
-              <g key={paper.id}>
-                <circle
-                  className={`pareto-dot ${
-                    activeStep === paper.step ? "active" : ""
-                  }`}
-                  cx={paper.chart.cx}
-                  cy={paper.chart.cy}
-                  r={activeStep === paper.step ? 6 : 4.5}
-                />
-                <text
-                  className={`dot-label ${
-                    activeStep === paper.step ? "active" : ""
-                  }`}
-                  x={paper.chart.labelX}
-                  y={paper.chart.labelY}
-                >
-                  {paper.chartLabel}
-                </text>
-              </g>
-            ))}
-          </svg>
-
-          <div className="cs-spectrum">
-            <div className="cs-spectrum-track">
-              {papers.map((paper) => (
-                <span
-                  key={paper.id}
-                  className={`cs-spectrum-marker ${
-                    activeStep === paper.step ? "active" : ""
-                  }`}
-                  style={{ left: `${paper.spectrum}%` }}
-                />
-              ))}
-            </div>
-            <div className="cs-spectrum-labels">
-              <span>Learning-based</span>
-              <span>Model-based</span>
-            </div>
-          </div>
-          </div>
-        </div>
-
-        <div className="cs-steps">
-          {steps.map((step, i) => (
-            <div
-              key={step.index}
-              className={`cs-step ${i === activeStep ? "active" : ""}`}
-              data-step={i}
-            >
-              <span className="cs-step-index">{step.index}</span>
-              <h4>{step.title}</h4>
-              <p>{step.body}</p>
-
-              {i === steps.length - 1 && (
-                <>
-                  <div className="cs-results">
-                    {milestones.map((milestone, j) => (
-                      <motion.div
-                        key={milestone.event}
-                        className="result-chip"
-                        initial={{ opacity: 0, y: 14 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.6 }}
-                        transition={{ duration: 0.4, delay: j * 0.08 }}
-                      >
-                        <span className="chip-place">{milestone.place}</span>
-                        <span className="chip-event">{milestone.event}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                  <CtaLink
-                    href="#contact"
-                    variant="primary"
-                    className="cs-step-cta"
-                    gaLabel="Case study research - Get in touch"
-                  >
-                    Get in touch
-                  </CtaLink>
-                </>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </article>
+    <div className="rd-metric">
+      <span className="rd-metric-value" ref={ref}>
+        {prefix}
+        {display}
+        {suffix}
+      </span>
+      <span className="rd-metric-label">{label}</span>
+    </div>
   );
 };
+
+const CaseStudyResearch = () => (
+  <article id="work-research" className="case-study-block research-dossier">
+    <header className="cs-header">
+      <span className="cs-kicker">Case Study 02 — Controls Research</span>
+      <h3 className="cs-title">Learning meets model-based control</h3>
+      <p className="cs-intro">
+        One question runs through all three papers: how do you combine
+        learning-based methods with model-based control so a vehicle is both
+        adaptive and provably safe? Each was presented at the IEEE
+        Transportation Electrification Conference; the team's CAV final
+        presentation heads to ASME DRIVN in September 2026.
+      </p>
+
+      <div className="rd-overview">
+        {overview.map((stat) => (
+          <Metric key={stat.label} {...stat} />
+        ))}
+      </div>
+    </header>
+
+    <motion.div
+      className="rd-grid"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ staggerChildren: 0.12 }}
+    >
+      {papers.map((paper) => (
+        <motion.article
+          key={paper.id}
+          className={`rd-card glass ${paper.lead ? "lead" : ""}`}
+          variants={cardVariants}
+        >
+          <div className="rd-card-top">
+            <span className="rd-number">PAPER {paper.number}</span>
+            <div className="rd-badges">
+              <span className="rd-venue">{paper.venue}</span>
+              <span className={`rd-role ${paper.lead ? "lead" : ""}`}>
+                {paper.role}
+              </span>
+            </div>
+          </div>
+
+          <h4 className="rd-title">{paper.title}</h4>
+
+          <div className="rd-body">
+            <div className="rd-block">
+              <span className="rd-block-label">The problem</span>
+              <p>{paper.problem}</p>
+            </div>
+            <div className="rd-block">
+              <span className="rd-block-label">The approach</span>
+              <p>{paper.approach}</p>
+            </div>
+          </div>
+
+          <div className="rd-metrics">
+            {paper.metrics.map((metric) => (
+              <Metric key={metric.label} {...metric} />
+            ))}
+          </div>
+
+          <a
+            className="rd-link"
+            href={paper.paper}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              ReactGA.event({
+                category: "Publication",
+                action: "View",
+                label: paper.title,
+              })
+            }
+          >
+            View paper <FaExternalLinkAlt aria-hidden="true" />
+          </a>
+        </motion.article>
+      ))}
+    </motion.div>
+
+    <div className="rd-footer">
+      <p className="rd-footer-note">
+        Full manuscripts open in your browser. Want to talk through the methods
+        or results?
+      </p>
+      <CtaLink
+        href="#contact"
+        variant="primary"
+        gaLabel="Case study research - Get in touch"
+      >
+        Get in touch
+      </CtaLink>
+    </div>
+  </article>
+);
 
 export default CaseStudyResearch;
