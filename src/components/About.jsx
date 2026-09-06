@@ -141,22 +141,23 @@ const About = () => {
               <ul className="intro-now">
                 <li>
                   <span className="intro-now-role">
-                    ADAS Software Engineer Intern · General Motors
-                  </span>
-                  <span className="intro-now-detail">
-                    Building automation tooling for ADAS feature teams and
-                    supporting on-vehicle data collection and validation at the
-                    Milford Proving Grounds.
-                  </span>
-                </li>
-                <li>
-                  <span className="intro-now-role">
                     Connected &amp; Automated Vehicle Lead · UA EcoCAR
                   </span>
                   <span className="intro-now-detail">
                     Leading the full self-driving stack on a pre-production
                     Cadillac LYRIQ, with control and sensor-fusion algorithms
                     designed and tuned in MATLAB/Simulink.
+                  </span>
+                </li>
+                <li>
+                  <span className="intro-now-role">
+                    ADAS Software Engineer Intern · General Motors
+                  </span>
+                  <span className="intro-now-detail">
+                    Spent summer 2026 building agentic automation tooling that
+                    cut ADAS signal-recording authoring time by 80%, plus
+                    embedded C and Simulink work on the Event Data Recorder and
+                    on-vehicle data collection at the Milford Proving Grounds.
                   </span>
                 </li>
               </ul>
@@ -225,7 +226,7 @@ const About = () => {
             {[
               { value: 15, suffix: "+", decimals: 0, label: "Team Members Led", delay: 0.8 },
               { value: 3.87, suffix: "", decimals: 2, label: "Undergraduate GPA", delay: 0.9 },
-              { value: "ADAS", suffix: "", decimals: 0, label: "Focus Area", delay: 1.0 },
+              { value: 3, suffix: "", decimals: 0, label: "IEEE Publications", delay: 1.0 },
             ].map((stat) => (
               <div className="stat-card glass" key={stat.label}>
                 <div className="gauge">

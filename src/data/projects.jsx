@@ -48,7 +48,7 @@ export const projects = [
     title: "Gaussian Process + MPC for V2X Intersection Navigation",
     category: "automotive",
     description:
-      "Custom controller for Automatic Intersection Navigation that compensates for SPaT V2X data loss caused by radio noise. A trained Gaussian Process predicts signal phase and timing through dropouts, and an MPC uses those predictions to plan smooth, energy-aware approaches.",
+      "Custom controller for Automatic Intersection Navigation that compensates for SPaT V2X data loss caused by radio noise. A trained Gaussian Process predicts signal phase and timing through dropouts, and an MPC uses those predictions to plan smooth, energy-aware approaches — zero red-light violations across 35 configurations (up to 33% packet loss) and 38% energy savings from the GLOSA advisory. Published at IEEE ITEC+EATS 2026.",
     technologies: [
       "MATLAB",
       "Simulink",
@@ -142,7 +142,7 @@ export const projects = [
     title: "Budgie: Smart Expense Planning",
     category: "mobile",
     description:
-      "Built a budgeting application for iOS with sporadic student income in mind. Features a custom constraint-based scheduling algorithm that predicts the most optimal date to purchase wish list items based on income and expenses. ",
+      "Built a budgeting application for iOS with sporadic student income in mind. Features a custom constraint-based scheduling algorithm that predicts the most optimal date to purchase wish list items based on income and expenses.",
     technologies: [
       "Swift",
       "iOS Development",
@@ -190,5 +190,6 @@ export const projectCategories = [
   { id: "all", label: "All Projects" },
   { id: "automotive", label: "Autonomous Vehicles" },
   { id: "ai", label: "AI & ML" },
+  { id: "mobile", label: "Mobile" },
   { id: "foundation", label: "Foundational" },
 ];

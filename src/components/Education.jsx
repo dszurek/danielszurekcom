@@ -5,9 +5,6 @@ import SectionHeader from "./SectionHeader";
 import { FaAward, FaBook, FaFileAlt, FaExternalLinkAlt } from "react-icons/fa";
 import ReactGA from "react-ga4";
 import uaLogo from "../images/ua_logo.png";
-import ainPaper from "../other/ain_paper.pdf";
-import drlMpcPaper from "../other/DRL-mpc.pdf";
-import laneCenteringPaper from "../other/LCC_classic-v-rl.pdf";
 import "./Education.css";
 
 const Education = () => {
@@ -46,8 +43,9 @@ const Education = () => {
       period: "August 2022 - May 2026",
       gpa: "3.87/4.0",
       description:
-        "Mathematics Minor. Comprehensive foundation in software development, algorithms, data structures, artificial intelligence, and system design. Active member of the EcoCAR team throughout undergraduate career, progressing from UI developer to Connected and Automated Vehicle Lead.",
+        "Graduated Summa Cum Laude with a Mathematics minor. Comprehensive foundation in software development, algorithms, data structures, artificial intelligence, and system design. Active member of the EcoCAR team throughout undergraduate career, progressing from UI developer to Connected and Automated Vehicle Lead.",
       achievements: [
+        "Graduated Summa Cum Laude",
         "Honors College member",
         "Upsilon Pi Epsilon Computer Science Honor Society",
         "Presidential Scholarship recipient",
@@ -70,29 +68,32 @@ const Education = () => {
     {
       title:
         "Gaussian Process–Based Model Predictive Control for Robust Autonomous Intersection Navigation Under Degraded V2I Communication",
-      venue: "IEEE ITEC",
-      status: "First author · Presented",
+      venue: "IEEE ITEC+EATS 2026",
+      status: "First author · Published",
       summary:
         "A five-feature Gaussian Process predicts signal timing through V2I outages and emits a confidence signal that tightens a nonlinear MPC — zero red-light violations across 35 configurations, up to 33.1% packet loss.",
-      paper: ainPaper,
+      doi: "10.1109/ITECEATS66641.2026.11593068",
+      xplore: "https://ieeexplore.ieee.org/document/11593068",
     },
     {
       title:
         "Adaptive MPC Weight Tuning via Reinforcement Learning for Eco-Driving: Framework and Oracle Gap Analysis",
-      venue: "IEEE ITEC",
-      status: "Co-author · Presented",
+      venue: "IEEE ITEC+EATS 2026",
+      status: "Co-author · Published",
       summary:
         "A Soft Actor-Critic agent tunes MPC cost weights as residual adjustments around a tuned baseline, benchmarked against an oracle grid search — +1.4% energy over fixed weights on an unseen drive cycle.",
-      paper: drlMpcPaper,
+      doi: "10.1109/ITECEATS66641.2026.11592971",
+      xplore: "https://ieeexplore.ieee.org/document/11592971",
     },
     {
       title:
         "Lane Centering Under Camera Failures: Classical Control vs. Reinforcement Learning for ADAS",
-      venue: "IEEE ITEC",
-      status: "Co-author · Presented",
+      venue: "IEEE ITEC+EATS 2026",
+      status: "Co-author · Published",
       summary:
         "A Kalman-filter + nested-PID baseline versus a SAC-LSTM agent on a shared Cadillac LYRIQ plant under a six-state Markov camera-failure model — sub-2 cm RMS lateral error at the classical baseline.",
-      paper: laneCenteringPaper,
+      doi: "10.1109/ITECEATS66641.2026.11592966",
+      xplore: "https://ieeexplore.ieee.org/document/11592966",
     },
     {
       title: "EcoCAR EV Challenge — CAV Final Presentation",
@@ -210,22 +211,25 @@ const Education = () => {
                   </div>
                   <h4 className="publication-title">{pub.title}</h4>
                   <p className="publication-summary">{pub.summary}</p>
-                  {pub.paper && (
-                    <a
-                      className="publication-link"
-                      href={pub.paper}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        ReactGA.event({
-                          category: "Publication",
-                          action: "Open",
-                          label: pub.title,
-                        })
-                      }
-                    >
-                      Read paper <FaExternalLinkAlt aria-hidden="true" />
-                    </a>
+                  {pub.xplore && (
+                    <div className="publication-links">
+                      <a
+                        className="publication-link"
+                        href={pub.xplore}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={`DOI ${pub.doi}`}
+                        onClick={() =>
+                          ReactGA.event({
+                            category: "Publication",
+                            action: "Open on IEEE Xplore",
+                            label: pub.title,
+                          })
+                        }
+                      >
+                        IEEE Xplore <FaExternalLinkAlt aria-hidden="true" />
+                      </a>
+                    </div>
                   )}
                 </motion.li>
               ))}
