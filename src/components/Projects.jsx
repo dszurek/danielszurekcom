@@ -128,6 +128,7 @@ const ProjectGrid = () => {
                     <motion.a
                       href={project.github}
                       className="project-link"
+                      aria-label={`${project.title} — source on GitHub`}
                       whileHover={{ scale: 1.1 }}
                       onClick={(e) =>
                         handleExternalLinkClick(e, "GitHub", project.title)
@@ -142,6 +143,7 @@ const ProjectGrid = () => {
                     <motion.a
                       href={project.live}
                       className="project-link"
+                      aria-label={`${project.title} — live site`}
                       whileHover={{ scale: 1.1 }}
                       onClick={(e) =>
                         handleExternalLinkClick(e, "Live Demo", project.title)
@@ -156,6 +158,7 @@ const ProjectGrid = () => {
                     <motion.a
                       href={project.appStore}
                       className="project-link"
+                      aria-label={`${project.title} — on the App Store`}
                       whileHover={{ scale: 1.1 }}
                       onClick={(e) =>
                         handleExternalLinkClick(e, "App Store", project.title)

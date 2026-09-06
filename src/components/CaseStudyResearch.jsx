@@ -3,19 +3,18 @@ import { motion } from "framer-motion";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import ReactGA from "react-ga4";
 import { useCountUp } from "../hooks/useCountUp";
-import ainPaper from "../other/ain_paper.pdf";
-import drlMpcPaper from "../other/DRL-mpc.pdf";
-import laneCenteringPaper from "../other/LCC_classic-v-rl.pdf";
 import "./CaseStudy.css"; // shared .cs-header / .cs-kicker / .cs-title / .cs-intro
 import "./ResearchDossier.css";
 
-/* Three IEEE ITEC papers, with the real titles, authorship, and numbers
-   pulled straight from the manuscripts in src/other. */
+/* Three IEEE ITEC+EATS 2026 papers, with the real titles, authorship, and
+   numbers pulled straight from the manuscripts in src/other. All three are
+   published in the proceedings (IEEE Xplore, 14 July 2026) — `doi` is the
+   canonical record, `xplore` the reader-facing link. */
 const papers = [
   {
     id: "gp-mpc",
     number: "01",
-    venue: "IEEE ITEC",
+    venue: "IEEE ITEC+EATS 2026",
     role: "First author",
     lead: true,
     title:
@@ -30,12 +29,13 @@ const papers = [
       { value: 13.7, suffix: "%", decimals: 1, label: "Comfort degradation, ideal → severe noise" },
       { value: 38.4, suffix: "%", decimals: 1, label: "Energy reduction from the GLOSA advisory" },
     ],
-    paper: ainPaper,
+    doi: "10.1109/ITECEATS66641.2026.11593068",
+    xplore: "https://ieeexplore.ieee.org/document/11593068",
   },
   {
     id: "rl-mpc",
     number: "02",
-    venue: "IEEE ITEC",
+    venue: "IEEE ITEC+EATS 2026",
     role: "Co-author · 2nd",
     title:
       "Adaptive MPC Weight Tuning via Reinforcement Learning for Eco-Driving: Framework and Oracle Gap Analysis",
@@ -49,12 +49,13 @@ const papers = [
       { value: 3, label: "EPA drive cycles evaluated" },
       { value: 0, label: "Collisions across every run" },
     ],
-    paper: drlMpcPaper,
+    doi: "10.1109/ITECEATS66641.2026.11592971",
+    xplore: "https://ieeexplore.ieee.org/document/11592971",
   },
   {
     id: "lane-centering",
     number: "03",
-    venue: "IEEE ITEC",
+    venue: "IEEE ITEC+EATS 2026",
     role: "Co-author · 3rd",
     title:
       "Lane Centering Under Camera Failures: Classical Control vs. Reinforcement Learning for ADAS",
@@ -68,12 +69,13 @@ const papers = [
       { value: 5, label: "Road scenarios, straight to sharp curve" },
       { value: 13, label: "RL training runs characterized" },
     ],
-    paper: laneCenteringPaper,
+    doi: "10.1109/ITECEATS66641.2026.11592966",
+    xplore: "https://ieeexplore.ieee.org/document/11592966",
   },
 ];
 
 const overview = [
-  { value: 3, label: "Papers" },
+  { value: 3, label: "Papers published" },
   { value: 1, label: "First author" },
   { value: 35, suffix: "+", label: "Test configurations" },
 ];
@@ -105,9 +107,10 @@ const CaseStudyResearch = () => (
       <p className="cs-intro">
         One question runs through all three papers: how do you combine
         learning-based methods with model-based control so a vehicle is both
-        adaptive and provably safe? Each was presented at the IEEE
-        Transportation Electrification Conference; the team's CAV final
-        presentation heads to ASME DRIVN in September 2026.
+        adaptive and provably safe? All three were presented at IEEE ITEC+EATS
+        2026 in Novi, Michigan and are published in the proceedings on IEEE
+        Xplore; the team's CAV final presentation heads to ASME DRIVN in
+        September 2026.
       </p>
 
       <div className="rd-overview">
@@ -159,21 +162,24 @@ const CaseStudyResearch = () => (
             ))}
           </div>
 
-          <a
-            className="rd-link"
-            href={paper.paper}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              ReactGA.event({
-                category: "Publication",
-                action: "View",
-                label: paper.title,
-              })
-            }
-          >
-            View paper <FaExternalLinkAlt aria-hidden="true" />
-          </a>
+          <div className="rd-links">
+            <a
+              className="rd-link"
+              href={paper.xplore}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() =>
+                ReactGA.event({
+                  category: "Publication",
+                  action: "View on IEEE Xplore",
+                  label: paper.title,
+                })
+              }
+            >
+              IEEE Xplore <FaExternalLinkAlt aria-hidden="true" />
+            </a>
+          </div>
+          <span className="rd-doi">DOI {paper.doi}</span>
         </motion.article>
       ))}
     </motion.div>

@@ -20,23 +20,26 @@ const Experience = () => {
       location: "Milford, MI",
       period: "May 2026 - August 2026",
       summary:
-        "On GM's ADAS data recording team — the infrastructure that captures critical event data for ADAS feature teams — I'm building an end-to-end automation pipeline that takes a Jira ticket all the way to a reviewed GitHub pull request, with the goal of cutting manual signal-recording-function authoring time by roughly 80%.",
+        "On GM's ADAS data recording team — the infrastructure that captures critical event data for ADAS feature teams — I built an end-to-end automation pipeline that took a Jira ticket all the way to a reviewed GitHub pull request, cutting manual signal-recording-function authoring time by 80%.",
       achievements: [
-        "Building an end-to-end pipeline that turns a Jira ticket into a generated signal recording definition function and an opened GitHub pull request, using the Jira API and the GitHub Copilot API",
-        "Automating IBM Rhapsody model updates through its API so generated functions stay in sync with the system engineering model",
-        "Supporting on-vehicle data collection at the Milford Proving Grounds, debugging recording configurations against live test runs to match feature-team signal requirements",
-        "Working within data recording infrastructure that supports 10+ ADAS feature teams' safety-critical event capture",
+        "Engineered an agentic LLM-driven pipeline in Python that turned a Jira ticket into a generated Event Data Recorder (EDR) signal recording definition function and an opened GitHub pull request, reducing manual authoring time by 80%",
+        "Modernized a legacy Simulink model untouched for four years and developed embedded C code for the EDR",
+        "Built data recording infrastructure supporting 10+ ADAS feature teams for safety-critical validation across thousands of test miles",
+        "Automated IBM Rhapsody model updates through its API so generated functions stayed in sync with the system engineering model",
+        "Supported on-vehicle data collection at the Milford Proving Grounds, debugging recording configurations against live test runs to match feature-team signal requirements",
+        "Collaborated with ADAS feature teams to translate recording requirements into automated, scalable software solutions",
       ],
       technologies: [
         "Python",
+        "Embedded C",
+        "Simulink",
         "Jira API",
-        "GitHub Copilot API",
+        "GitHub API",
         "IBM Rhapsody",
         "Agentic AI",
         "ADAS",
       ],
       logo: gmLogo,
-      isCurrent: true,
     },
     {
       id: 1,
@@ -52,7 +55,7 @@ const Experience = () => {
         "Validated system performance through rigorous HIL and VIL testing on safety-critical software",
         "Led a team of 15 students in the final year of the EcoCAR EV Challenge",
         "Year 4 finals (13 universities): 4th overall — 1st in CAV Vehicle Technical Specifications, 2nd in MathWorks Model-Based Design, 2nd in the competition CAV presentation, 2nd in Automatic Intersection Navigation, 3rd in AIN energy consumption, 2nd in Ride & Drive",
-        "Presented three research papers at IEEE ITEC (robust AIN optimization, hybrid DRL-MPC eco-driving, RL vs. MPC lane centering), with the CAV final presentation headed to ASME DRIVN in September 2026",
+        "Published three research papers at IEEE ITEC+EATS 2026 (robust AIN optimization, hybrid DRL-MPC eco-driving, RL vs. MPC lane centering), with the CAV final presentation headed to ASME DRIVN in September 2026",
       ],
       technologies: [
         "MATLAB",
@@ -67,6 +70,7 @@ const Experience = () => {
         "Reinforcement Learning",
       ],
       logo: ecocarLogo,
+      isCurrent: true,
       progression: [
         {
           title: "CAV Lead",

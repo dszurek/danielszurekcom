@@ -166,6 +166,10 @@
 
 .form-group input,
 .form-group textarea {
+  /* Without these, the input's intrinsic ~20-character default width sets a
+     min-content floor that pushes the whole card past a small phone. */
+  width: 100%;
+  min-width: 0;
   padding: 1rem 1.5rem;
   border-radius: 15px;
   border: 2px solid rgba(212, 197, 185, 0.1);
@@ -263,6 +267,13 @@
   }
 }
 
+/* The email address is the widest unbreakable string on the card; without
+   this it sets a min-content floor that overflows a 320px phone. */
+.contact-details a,
+.contact-details span {
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 768px) {
   .contact {
     padding: 6rem 1rem 2rem;
@@ -275,5 +286,18 @@
 
   .social-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Smallest phones (320px): the paired social tiles and 2rem card padding
+   together still set a floor wider than the viewport. */
+@media (max-width: 380px) {
+  .info-card,
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .social-grid {
+    grid-template-columns: 1fr;
   }
 }

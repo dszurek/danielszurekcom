@@ -80,11 +80,18 @@
   box-shadow: 0 20px 60px rgba(139, 90, 60, 0.3);
 }
 
+/* Lazy-loaded art leaves this panel bare until it arrives — keep it on the
+   card's own surface so an in-flight image reads as loading, not as a broken
+   tile the way a flat black box did. */
 .project-image {
   height: 250px;
   position: relative;
   overflow: hidden;
-  background: #000;
+  background: linear-gradient(
+    135deg,
+    var(--color-surface-2),
+    var(--color-dark)
+  );
 }
 
 .project-img-element {

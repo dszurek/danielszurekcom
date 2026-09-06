@@ -52,6 +52,8 @@ const Skills = () => {
         "MATLAB",
         "SQL",
         "JavaScript (React)",
+        "TypeScript",
+        "Bash",
         "Dart (Flutter)",
         "Java",
         "Swift",

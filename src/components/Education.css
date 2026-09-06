@@ -322,6 +322,13 @@
   max-width: 75ch;
 }
 
+.publication-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.4rem;
+}
+
 .publication-link {
   display: inline-flex;
   align-items: center;
